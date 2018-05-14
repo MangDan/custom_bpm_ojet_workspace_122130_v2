@@ -1,0 +1,163 @@
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<!--
+<div class="oj-hybrid-padding">
+  <div id="assignedTask" style="width: 1px; min-width: 100%;">
+    <oj-table id="table" aria-label="Departments Table"
+              data='[[pagingDatasource]]'
+              columns='[{"headerText": "Task Id", "field": "taskId"},
+                        {"headerText": "Title", "field": "title"},
+                        {"headerText": "Assigned Date", "field": "assignedDate"},
+                        {"headerText": "Status", "field": "EMAIL"},
+                        {"headerText": "Process", "field": "process"}]'
+              style='width: 100%;'>
+        <oj-paging-control id="paging" data='[[pagingDatasource]]' page-size='5' slot='bottom'>
+        </oj-paging-control>
+    </oj-table>
+</div>
+</div>
+Table - Offset을 활용하면 필요한 부분만 가져오도록 설계 가능..
+-->
+<div id="oj-hybrid-padding" tyle="width: 1px; min-width: 100%;">
+    <oj-input-text id="filter" maxlength="30" placeholder="Title" value=""></oj-input-text>
+    <oj-button disabled='false' chroming='half' on-oj-action="[[refresh]]">
+        <span slot="startIcon" class="oj-button-icon oj-fwk-icon oj-fwk-icon-magnifier"></span>
+    </oj-button>
+    <br>
+    <oj-table id='assignedTaskList' aria-label='Departments Table' data='[[pagingDatasource]]' columns='[{"headerText": "Task No.", "field": "number", "style": "width:100px"},
+                             {"headerText": "Title", "field": "title", "style": "text-overflow:ellipsis; overflow:hidden"},
+                             {"headerText": "Status", "field": "state", "style": "width:100px"},
+                             {"headerText": "Priority", "field": "priority", "style": "width:100px"},
+                             {"headerText": "Assigned Date", "field": "assignedDate", "style": "width:150px"},
+                             {"headerText": "Process", "field": "processName", "style": "width:200px"}]' display="grid"
+        columns-default.resizable="enabled" row-renderer='[[oj.KnockoutTemplateUtils.getRenderer("tasks_tmpl", true)]]' style='width: 100%;'>
+        <oj-paging-control id="paging" data='[[pagingDatasource]]' page-size='10' slot='bottom' on-click=[[clickPaging]]>
+        </oj-paging-control>
+    </oj-table>
+    <script type="text/html" id="tasks_tmpl">
+        <tr>
+          <input type="text" data-bind="text: shortSummary"/>
+          <input type="text" data-bind="text: longSummary"/>
+          <td><a data-bind="text: number, click: $parent.taskDetailDialogLink" ></a></td>
+          <td><a data-bind="text: title, click: $parent.taskDetailDialogLink"></a></td>
+          <td data-bind="text: state"></td>
+          <td data-bind="text: priority"></td>
+          <td data-bind="text: assignedDate"></td>
+          <td><a data-bind="text: processName, click: $parent.instanceAuditDialog"></a></td>
+        </tr>
+    </script>
+</div>
+
+<div id="taskDetailPopupWrapper">
+
+    <oj-dialog style="display:none;width:50vw;height:700px" id="taskDetailDialog" modality="modal">
+        <div slot="header">
+            <span id="dialogTitleId" class="oj-dialog-title" data-bind="text:taskTitle">
+            </span>
+        </div>
+        <div slot="body">
+            <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-space-between oj-sm-align-items-center" style="padding-top:5px;padding-bottom:5px">
+                <div class="oj-flex-item">
+                    <span style="color: #f2944e; font-size: 16px; font-weight: bold">접수 정보</span>
+                </div>
+                <div class="oj-flex-item">
+                    <!-- ko foreach: actionItems -->
+                    <oj-button data-bind="attr: {'id':'action_'+id, class:'oj-button-'+(id=='OK' ? 'primary' : (id=='APPROVE'?'confirm':'default'))}"
+                        disabled='false' chroming='full' on-oj-action="[[$parent.submit]]">
+                        <!-- foreach 안에서는 무조건 $parent를 쓴다.!!!!-->
+                        <span>
+                            <oj-bind-text value="[[(label=='확인'?'처리':label)]]"></oj-bind-text>
+                        </span>
+                    </oj-button>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <hr style="margin: 0px;padding-bottom:10px;">
+            <div class="oj-form oj-sm-odd-cols-6 oj-md-odd-cols-4 oj-lg-odd-cols-3 oj-sm-labels-inline">
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <label class="oj-label-nocomp oj-label-for-non-control" id="A4label" style="font-weight: bold; font-size: 15px">
+                            <b>제목</b>
+                        </label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <div class="oj-form-non-control" aria-labelledby="A4label" data-bind="text:receiptTitle" style="font-size: 15px"></div>
+                    </div>
+                </div>
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <label class="oj-label-nocomp oj-label-for-non-control" id="A4label" style="font-weight: bold; font-size: 15px">접수일자</label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <div class="oj-form-non-control" aria-labelledby="A4label" data-bind="text:receiptDate" style="font-size: 15px"></div>
+                    </div>
+                </div>
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <label class="oj-label-nocomp oj-label-for-non-control" id="A4label" style="font-weight: bold; font-size: 15px">내용</label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <div class="oj-form-non-control" aria-labelledby="A4label" data-bind="text:receiptContent" style="font-size: 15px"></div>
+                    </div>
+                </div>
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <label class="oj-label-nocomp oj-label-for-non-control" id="A4label" style="font-weight: bold; font-size: 15px">접수자</label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <div class="oj-form-non-control" aria-labelledby="A4label" data-bind="text:receiptor" style="font-size: 15px"></div>
+                    </div>
+                </div>
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <label class="oj-label-nocomp oj-label-for-non-control" id="A4label" style="font-weight: bold; font-size: 15px">실사주체</label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <div class="oj-form-non-control" aria-labelledby="A4label" data-bind="text:inspector" style="font-size: 15px"></div>
+                    </div>
+                </div>
+
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <label class="oj-label-nocomp oj-label-for-non-control" id="A4label" style="font-weight: bold; font-size: 15px">접수구분</label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <div class="oj-form-non-control" aria-labelledby="A4label" data-bind="text:receiptType" style="font-size: 15px"></div>
+                    </div>
+                </div>
+
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <label class="oj-label-nocomp oj-label-for-non-control" id="A4label" style="font-weight: bold; font-size: 15px">기타</label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <div class="oj-form-non-control" aria-labelledby="A4label" data-bind="text:description" style="font-size: 15px"></div>
+                    </div>
+                </div>
+            </div>
+            <hr style="margin: 0px;padding-bottom:10px;">
+            <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-space-between oj-sm-align-items-center" style="padding-top:5px;padding-bottom:5px">
+                <div class="oj-flex-item">
+                    <span style="color: #f2944e; font-size: 16px; font-weight: bold">의견</span>
+                </div>
+            </div>
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                    <oj-text-area id="description" value='{{description}}' rows="16" style="max-width:100%" placeholder="의견"></oj-text-area>
+                </div>
+            </div>
+        </div>
+    </oj-dialog>
+</div>
+<div id="instanceAuditDiagramPopupWrapper">
+        <oj-dialog style="display:none;width:95vw;height:95vh" id="instanceAuditDiagramDialog" modality="modal">
+            <div slot="header">
+                <span id="dialogTitleId" class="oj-dialog-title" data-bind="text:instanceTitle">
+                </span>
+            </div>
+            <div slot="body" id="instanceAuditTrace">
+            </div>
+        </oj-dialog>
+    </div>

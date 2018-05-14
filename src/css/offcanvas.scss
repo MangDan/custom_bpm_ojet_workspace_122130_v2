@@ -1,0 +1,116 @@
+@import "../../oj/utilities/oj.utilities";
+@import "../../oj/alta/oj.alta.variables";
+
+// Styles used in the responsive offcanvas demos
+// Partition A styles
+.demo-offcanvas-push-A,
+.demo-offcanvas-overlay-A {
+  @include oj-ltr() {
+    border-width: 0 1px 0 0;
+  }
+  @include oj-rtl() {
+    border-width: 0 0 0 1px;
+  }
+}
+
+// Partition C styles
+.demo-offcanvas-push-C,
+.demo-offcanvas-overlay-C {
+  @include oj-ltr() {
+    border-width: 0 0 0 1px;
+  }
+  @include oj-rtl() {
+    border-width: 0 1px 0 0;
+  }
+}
+
+// Partition Styles beyond Max-Width
+@media (min-width: #{$appLayoutMaxWidth}) {
+  .oj-web-applayout-max-width .demo-offcanvas-push-A,
+  .oj-web-applayout-max-width .demo-offcanvas-overlay-A,  {
+    @include oj-ltr() {
+      border-left-width: 1px;
+    }
+    @include oj-rtl() {
+      border-right-width: 1px;
+    }
+  }
+
+  .oj-web-applayout-max-width .demo-offcanvas-push-C,
+  .oj-web-applayout-max-width .demo-offcanvas-overlay-C,  {
+    @include oj-ltr() {
+      border-right-width: 1px;
+    }
+    @include oj-rtl() {
+      border-left-width: 1px;
+    }
+  }
+}
+
+// toggle/close button margins
+// TO DO: Once the Header Bar is checked in, button margin styles should be removed
+.demo-button-left-margin .oj-button-jqui,
+.demo-button-left-margin .oj-button-button {
+  @include oj-ltr() {
+    margin: 0 5px 0 -10px;
+  }
+  @include oj-rtl() {
+    margin: 0 -10px 0 5px;
+  }
+}
+
+.demo-button-right-margin .oj-button-jqui,
+.demo-button-right-margin .oj-button-button {
+  @include oj-ltr() {
+    margin: 0 -10px 0 5px;
+  }
+  @include oj-rtl() {
+    margin: 0 5px 0 -10px;
+  }
+}
+
+// Enable partition scroll
+.demo-offcanvas-push-A,
+.demo-offcanvas-push-B,
+.demo-offcanvas-push-C,
+.demo-offcanvas-overlay-A,
+.demo-offcanvas-overlay-B,
+.demo-offcanvas-overlay-C {
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+// Set height of the page for the partitions to scroll
+.demo-offcanvas-page {
+  max-height: 100vh;
+}
+
+// Set max height for the offcanvas wrapper divs
+.demo-offcanvas-wrapper {
+  max-height: 100%;
+}
+
+// Style class for Page Background switch.
+// For Medium and Small screen offcanvas will always have background.
+// Hence hide the Page Background switch for Medium and Small screen.
+@if $responsiveQueryMediumDown and $responsiveQueryMediumDown != none {
+  @media #{$responsiveQueryMediumDown} {
+    .demo-app-background-switch {
+      display: none;
+    }
+  }
+}
+
+// Style class for oj-web-applayout-max-width switch.
+// The switch is used to set the application max width as $appLayoutMaxWidth, which is 1440px.
+// Hide the switch if the application width is smaller than max width.
+@media (max-width: #{$appLayoutMaxWidth}) {
+  .demo-app-max-width-switch {
+    display: none;
+  }
+}
+
+// Partition panel style
+.demo-panel {
+  border-style: solid;
+}

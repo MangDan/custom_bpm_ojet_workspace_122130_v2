@@ -1,0 +1,47 @@
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+ <div id="oj-hybrid-padding" tyle="width: 1px; min-width: 100%;">
+  <oj-input-text id="filter" maxlength="30" placeholder="Title" value=""></oj-input-text>
+  <oj-button disabled='false' chroming='half' on-oj-action="[[refresh]]">
+    <span slot="startIcon" class="oj-button-icon oj-fwk-icon oj-fwk-icon-magnifier"></span>
+  </oj-button>
+  <br>
+<oj-table id='table' aria-label='Departments Table'
+                 data='[[pagingDatasource]]'
+                 display='grid' columns-default.resizable="enabled" 
+                 columns='[{"headerText": "Task No.", "field": "number", "style": "width:100px"},
+                           {"headerText": "Title", "field": "title", "style": "text-overflow:ellipsis; overflow:hidden"},
+                           {"headerText": "Status", "field": "state", "style": "width:100px"},
+                           {"headerText": "Priority", "field": "priority", "style": "width:100px"},
+                           {"headerText": "Assigned Date", "field": "assignedDate", "style": "width:150px"},
+                           {"headerText": "Process", "field": "processName", "style": "width:200px"}]' display="grid"
+                           columns-default.resizable="enabled"  row-renderer='[[oj.KnockoutTemplateUtils.getRenderer("tasks_tmpl", true)]]' style='width: 100%;'
+                 style='width: 100%;height:450px'>
+              <oj-paging-control id="paging" data='[[pagingDatasource]]' page-size='10' slot='bottom'>
+              </oj-paging-control>
+          </oj-table>
+          <script type="text/html" id="tasks_tmpl">
+            <tr>
+                <input type="text" data-bind="text: shortSummary"/>
+                <input type="text" data-bind="text: longSummary"/>
+                <td data-bind="text: number"></td>
+                <td data-bind="text: title"></td>
+                <td data-bind="text: state"></td>
+                <td data-bind="text: priority"></td>
+                <td data-bind="text: assignedDate"></td>
+                <td><a data-bind="text: processName, click: $parent.instanceAuditDialog"></a></td>
+            </tr>
+        </script>
+</div>
+<div id="instanceAuditDiagramPopupWrapper">
+        <oj-dialog style="display:none;width:95vw;height:95vh" id="instanceAuditDiagramDialog" modality="modal">
+            <div slot="header">
+                <span id="dialogTitleId" class="oj-dialog-title" data-bind="text:instanceTitle">
+                </span>
+            </div>
+            <div slot="body" id="instanceAuditTrace">
+            </div>
+        </oj-dialog>
+    </div>

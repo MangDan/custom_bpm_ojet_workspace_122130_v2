@@ -1,0 +1,23 @@
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+ <div class="oj-hybrid-padding">
+  <div id="instances-menu-container" class="oj-flex oj-flex-items-pad">
+    <div class="oj-sm-2 oj-md-2 oj-lg-2 oj-flex-item" style="border: 0px solid">
+      <oj-navigation-list id="instanceMenu" on-oj-before-select="[[selectHandler]]" display = "[[large() ? 'all' : 'icons']]" aria-label="Choose a navigation item" selection="{{router.stateId}}" data="[[dataSource]]" item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('task_menu', true)]]">
+      </oj-navigation-list>
+      <script type="text/html" id="task_menu">
+        <li data-bind="attr:{ id : $data['id']}, css:{'oj-disabled' : $data['disabled']=='true'}">
+            <a href="#" data-bind="text: $data['name']">
+              <span data-bind="css: $data['iconClass']" >
+              </span>
+            </a>
+        </li>
+      </script>
+    </div>
+    <div class="oj-sm-10 oj-md-10 oj-lg-10 oj-flex-item" style="border: 0px solid">
+        <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content" data-bind="ojModule: modulePath"></div>
+    </div>
+  </div>
+</div>

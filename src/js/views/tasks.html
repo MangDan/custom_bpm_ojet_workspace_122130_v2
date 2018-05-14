@@ -1,0 +1,68 @@
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+ <!--
+   oj-offcanvas-outer-wrapper : 
+ -->
+<div id="wrapperDiv" class="oj-offcanvas-outer-wrapper oj-flex">
+  <div id="tasknavlistcontainer" class="oj-flex-item oj-sm-12 oj-md-12 oj-lg-2 oj-xl-2">
+    <oj-navigation-list id="taskMenu" aria-label="Choose a navigation item" drill-mode="collapsible" selection="{{router.stateId}}"
+      on-oj-before-select="[[selectHandler]]" display="[[large() ? 'all' : 'icons']]" item.selectable="[[itemOnly]]" expanded="[[expanded]]">
+      <ul data-bind="template: {name: 'taskMenuTemplate', foreach: tasksNavItems, as: 'item'}"></ul>
+    </oj-navigation-list>
+    <script type="text/html" id="taskMenuTemplate">
+      <li data-bind="attr: {id: id}, css: {'oj-disabled': item.disabled}">
+        <a href="#">
+          <!-- ko if:iconStyleClass-->
+          <!-- <span data-bind="attr:{class:iconStyleClass}"></span>-->
+          <!-- /ko -->
+          <!-- ko text: label-->
+          <!-- /ko -->
+        </a>
+        <!-- ko if: item.children -->
+        <ul data-bind="template: {name: 'taskMenuTemplate', foreach: item.children, as: 'item'}">
+        </ul>
+        <!-- /ko -->
+      </li>
+    </script>
+  </div>
+  <div id="taskMainContent" class="main-content oj-flex-item oj-sm-12 oj-md-12 oj-lg-10 oj-xl-10">
+    <div class="oj-flex" id="mainContent">
+      <div class="oj-flex-item">
+        <div class="oj-flex-bar">
+          <div class="oj-flex-bar-middle">
+              <div role="mainContentModule" class="oj-flex oj-sm-flex-1" style="overflow-y:auto" data-bind="ojModule: modulePath"></div>
+          </div>
+          <div class="oj-flex-bar-top">
+            <oj-button id="end" class="oj-sm-align-self-center oj-end demo-button-right-margin" on-click="[[toggleEnd]]"
+              chroming="half" display="icons"> <!-- oj-xl-hide Bug? sometimes not working... -->
+              <span>Toggle Task Report Summary</span>
+              <span slot="endIcon" class="oj-fwk-icon-dots-vertical oj-fwk-icon"></span>
+            </oj-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end offcanvas -->
+  <div id="infoEndDrawer" class="oj-panel-alt4 oj-offcanvas-overlay-shadow oj-sm-6 oj-md-6 oj-lg-2 oj-xl-2">
+      <div class="oj-flex">
+        <div class="oj-flex-item">
+          <div class="oj-flex-bar">
+            <div class="oj-flex-bar-start"><h4>Task Report Summary</h4></div>
+            <div class="oj-flex-bar-end">
+              <oj-button class="oj-sm-align-self-center oj-xl-hide oj-end demo-button-right-margin"
+                         on-click="[[closeEnd]]" chroming="half" display="icons">
+                <span slot="startIcon" class="oj-panel-remove-icon"></span>
+                <span data-bind="text: oj.Translations.getTranslatedString('oj-ojDialog.labelCloseIcon')"></span>
+              </oj-button>
+            </div>
+          </div>
+          <div id="taskReportSummary">
+            <p>Task Report Summary</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
