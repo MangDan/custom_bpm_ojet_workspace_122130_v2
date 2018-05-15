@@ -5,11 +5,11 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojlistview', 'ojs/ojmodel', 'ojs/ojbutton', 'ojs/ojgauge'],
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojchart'],
   function (oj, ko, $) {
-    function AssignedTaskViewModel() {
-      var self = this;
 
+    function TotalTaskChartViewModel() {
+      var self = this;
       // Below are a subset of the ViewModel methods invoked by the ojModule binding
       // Please reference the ojModule jsDoc for additional available methods.
 
@@ -26,9 +26,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojlistview', 'ojs/ojmodel', 'oj
        */
       self.handleActivated = function (info) {
         // Implement if needed
-        //"RELOAD 할 AJAX를 여기서 다시 호출한다.... 해당 페이지에 REFRESH 아이콘도 넣을 수 있을 것으로 봄...
-        //AJAX는 SYNC
-        // Layout 및 Collection 진행...
+        console.log("ajax reload..");
       };
 
       /**
@@ -69,62 +67,83 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojlistview', 'ojs/ojmodel', 'oj
         // Implement if needed
       };
 
-      oj.Logger.info(obpmConfig.serverurl, obpmConfig.resturi, obpmConfig.adminuser, obpmConfig.adminpw);
+      self.barSeriesValue = ko.observableArray();
+      self.barGroupsValue = ko.observableArray();
+      self.legendSectionsValue = ko.observableArray();
 
-      var prodArray = [{
-          prodNr: '1',
-          amount: 25,
-          productName: 'Syrup',
-          productTitle: 'Glucose-Fructose syrup',
-          productCode: '76391',
-          usageRatio: 10,
-          stockQuantity: 150,
-          orderQuantity: 30
+      var data1 = [{
+          name: 'Coke',
+          value: 42
         },
         {
-          prodNr: '2',
-          amount: 80,
-          productName: 'Juice',
-          productTitle: 'Natural cold pressed juice',
-          productCode: '86402',
-          usageRatio: 30,
-          stockQuantity: 230,
-          orderQuantity: 1500
+          name: 'Fanta',
+          value: 55
         },
         {
-          prodNr: '3',
-          amount: 50,
-          productName: 'Pectin',
-          productTitle: 'Extracted from citrus fruits',
-          productCode: '75201',
-          usageRatio: 55,
-          stockQuantity: 40,
-          orderQuantity: 10
+          name: 'Sprite',
+          value: 36
         },
         {
-          prodNr: '4',
-          amount: 40,
-          productName: 'Fructose/Sugar',
-          productTitle: 'Derived from sugar cane, sugar beets, and maize',
-          productCode: '83419',
-          usageRatio: 25,
-          stockQuantity: 250,
-          orderQuantity: 150
+          name: 'Dr Pepper',
+          value: 22
         },
         {
-          prodNr: '5',
-          amount: 10,
-          productName: 'Citric Acid',
-          productTitle: 'Extracted from lemons and limes',
-          productCode: '54814',
-          usageRatio: 99,
-          stockQuantity: 110,
-          orderQuantity: 11
+          name: 'Pepsi',
+          value: 12
+        },
+        {
+          name: 'Pepsi',
+          value: 12
+        },
+        {
+          name: 'Pepsi',
+          value: 12
         }
       ];
-      self.datasource = new oj.ArrayTableDataSource(prodArray, {
-        idAttribute: 'prodNr'
+
+      /* Returns bar series array based on provided data and colorHandler */
+      var getBarSeries = function (data, colorHandler) {
+        var items = [];
+        for (var i = 0; i < data.length; i++) {
+          items.push({
+            value: data[i].value,
+            text: data[i].name,
+            color: colorHandler.getValue(data[i].name),
+          });
+        }
+        return [{
+          items: items
+        }];
+      };
+
+      /* Returns bar groups array based on provided data */
+      getBarGroups = function (data) {
+        var groups = [];
+        for (var i = 0; i < data.length; i++) {
+          groups.push(data[i].name);
+        }
+        return groups;
+      };
+
+      self.yAxis = ko.pureComputed(function () {
+        return {
+          rendered: "off",
+          majorTick: {
+            lineWidth: 0
+          }
+        };
       });
+
+      /* chart style defaults */
+      self.styleDefaults = ko.pureComputed(function () {
+        return {
+          barGapRatio: 0.1
+        };
+      });
+
+      var colorHandler = new oj.ColorAttributeGroupHandler();
+      self.barSeriesValue(getBarSeries(data1, colorHandler));
+      self.barGroupsValue(getBarGroups(data1));
 
     }
 
@@ -133,6 +152,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojlistview', 'ojs/ojmodel', 'oj
      * each time the view is displayed.  Return an instance of the ViewModel if
      * only one instance of the ViewModel is needed.
      */
-    return new AssignedTaskViewModel();
+    return new TotalTaskChartViewModel();
   }
 );

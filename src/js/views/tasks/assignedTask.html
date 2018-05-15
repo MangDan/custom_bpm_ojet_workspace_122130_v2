@@ -1,27 +1,135 @@
 <!--
- Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ Copyright (c) 2014, 2017, Oracle and/or its affiliates.
  The Universal Permissive License (UPL), Version 1.0
  -->
-<div class="oj-web-applayout-max-width oj-web-applayout-content" style="border: 1px solid">
-    <div class="oj-flex oj-flex-items-pad">
-      <div class="oj-flex-item oj-sm-12">
-        <div class="oj-flex oj-flex-items-pad oj-sm-align-items-flex-end">
-          <div id="pageTitleContainer" class="oj-flex-item oj-sm-2">
-            <h3 style="margin-bottom:0">Assigned Task</h3>
-          </div>
-          <div class="oj-flex-item oj-sm-8  oj-flex oj-md-justify-content-center">
-            <div class="oj-flex-item" style="max-width: 400px; white-space: nowrap">
-              Search filter Area
-            </div>
-          </div>
-          <div class="oj-flex-item oj-sm-2">
-            <div id="layoutSet" class="" aria-label="Choose layout type." style="float: right">
-              right..
-
+<div id="tasks" class="oj-web-applayout-max-width ">
+  <div class="oj-flex">
+    <div class="oj-sm-12 oj-flex-item" style="padding-bottom:3px">
+      <img class="img-center" src="css/images/alta_icon/qual_book_48_full.png" width="20" height="20" />
+      <span role="separator" aria-orientation="vertical" class="oj-toolbar-separator"></span>
+      My Tasks
+    </div>
+  </div>
+  <div class="oj-flex">
+    <div class="oj-sm-12 oj-flex-item">
+      <div class="oj-panel">
+        <h3 class="oj-header-border" style="font-family:helvetica">Header</h3>
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <div class="oj-flex">
+              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
+                <div class="panel-right-border">  <!-- Right Separate Border -->
+                  <div style="padding: 5px; height: 154px;margin:5px">
+                    <div class="oj-flex oj-flex-items-pad">
+                      <div class="oj-flex-item blue-large-font">111</div>
+                    </div>
+                    <div class="oj-flex oj-flex-items-pad">
+                      <div class="oj-flex-item">
+                        <strong>Total Task</strong>
+                      </div>
+                    </div>
+                    <div class="oj-flex">
+                      <div class="oj-flex-item">
+                          <div id='total-task-chart-container'>
+                              <div class="oj-flex oj-sm-flex-1" data-bind="ojModule: 'tasks/chart/totalTask'"></div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
+                <div class="panel-right-border">
+                  <div style="padding: 5px; height: 154px;margin:5px">
+                    <div class="oj-flex oj-flex-items-pad">
+                      <div class="oj-flex-item blue-large-font">111</div>
+                    </div>
+                    <div class="oj-flex oj-flex-items-pad">
+                      <div class="oj-flex-item">
+                        <strong>Total
+                          <br> Message</strong>
+                      </div>
+                    </div>
+                    <div class="oj-flex oj-flex-items-pad">
+                      <div class="oj-flex-item">
+                        Graph....
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
+                <div class="panel-right-border">
+                  <div style="padding: 5px; height: 154px;margin:5px">
+                    <div class="oj-flex oj-flex-items-pad">
+                      <div class="oj-flex-item blue-large-font">111</div>
+                    </div>
+                    <div class="oj-flex oj-flex-items-pad">
+                      <div class="oj-flex-item">
+                        <strong>Total
+                          <br> Message</strong>
+                      </div>
+                    </div>
+                    <div class="oj-flex oj-flex-items-pad">
+                      <div class="oj-flex-item">
+                        Graph....
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
+                <div class="panel-right-border">
+                  <div style="padding: 5px; height: 154px;margin:5px">
+                    <div class="oj-flex oj-flex-items-pad">
+                      <div class="oj-flex-item blue-large-font">111</div>
+                    </div>
+                    <div class="oj-flex oj-flex-items-pad">
+                      <div class="oj-flex-item">
+                        <strong>Total
+                          <br> Message</strong>
+                      </div>
+                    </div>
+                    <div class="oj-flex oj-flex-items-pad">
+                      <div class="oj-flex-item">
+                        Graph....
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
+  </div>
+  <div class="oj-flex" style="margin-top:20px">
+    <div class="oj-sm-12 oj-flex-item">
+      <div class="oj-panel">
+        <h3 class="oj-header-border" style="font-family:helvetica">Header</h3>
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <div class="oj-flex">
+              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
+                <div class="panel-right-border" style="padding: 5px; height: 154px">
+
+
+                </div>
+              </div>
+              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
+                <div class="panel-right-border" style="padding: 5px; height: 154px">test</div>
+              </div>
+              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
+                <div class="panel-right-border" style="padding: 5px; height: 154px">test</div>
+              </div>
+              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
+                <div class="panel-right-border" style="padding: 5px; height: 154px">test</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
