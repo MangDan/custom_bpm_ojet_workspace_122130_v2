@@ -2,8 +2,18 @@
  Copyright (c) 2014, 2017, Oracle and/or its affiliates.
  The Universal Permissive License (UPL), Version 1.0
  -->
-<oj-chart id="totalTaskChart" type="bar" style-defaults="[[styleDefaults]]" orientation="vertical" series="[[barSeriesValue]]" groups="[[barGroupsValue]]"
-  legend.rendered="off" legend.sections="[[legendSectionsValue]]" y-axis="[[yAxis]]" x-axis.rendered="off"
-  value-formats.group.tooltip-label="" value-formats.value.tooltip-label="" animation-on-data-change="auto"
-  animation-on-display="auto" style="width:100%;height:100px">
+ <oj-chart id="barChart"
+ type="bar" 
+ series="[[barSeriesValue]]"
+ groups="[[barGroupsValue]]" 
+ animation-on-display="auto"
+ animation-on-data-change="auto"
+ orientation="vertical"
+ y-axis.major-tick.line-width="0"
+ legend.position="bottom"
+ style-defaults.data-label-position="auto"
+ stack="on"
+ stack-label="off"
+ y-axis.tick-label.rendered="off"
+ style="max-width:500px;width:100%;height:150px;">
 </oj-chart>

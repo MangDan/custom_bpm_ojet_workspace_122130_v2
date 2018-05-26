@@ -8,7 +8,7 @@
 define(['ojs/ojcore', 'knockout', 'jquery'],
   function (oj, ko, $) {
 
-    function CompletedTaskViewModel() {
+    function TaskQueryServiceModel() {
       var self = this;
       // Below are a subset of the ViewModel methods invoked by the ojModule binding
       // Please reference the ojModule jsDoc for additional available methods.
@@ -68,9 +68,35 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
 
       oj.Logger.info(obpmConfig.serverurl, obpmConfig.resturi, obpmConfig.adminuser, obpmConfig.adminpw);
 
-      $(document).ready(function () {
-        
-      });
+      // Generate authorization headers to inject into rest calls
+      self.getHeaders = function () {
+        return {
+          'headers': {
+            'Authorization': 'Bearer token',
+            'userToken': 'self.token()',
+            'DD-Process-Type': 'spatial'
+          }
+        };
+      };
+
+      self.taskModel = function (url) {
+        var taskModel = oj.Model.extend({
+          urlRoot: url,
+          idAttribute: 'number'
+        });
+        return new taskModel();
+      };
+
+      self.listTaskCol = function (url, fetchSize) {
+        var taskCollection = oj.Collection.extend({
+          url: url,
+          model: self.taskModel(),
+          fetchSize: fetchSize
+          //customURL: rootViewModel.getHeaders,
+        });
+
+        return new taskCollection();
+      };
     }
 
     /*
@@ -78,6 +104,6 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
      * each time the view is displayed.  Return an instance of the ViewModel if
      * only one instance of the ViewModel is needed.
      */
-    return new CompletedTaskViewModel();
+    return new TaskQueryServiceModel();
   }
 );

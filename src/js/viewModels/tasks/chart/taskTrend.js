@@ -5,10 +5,10 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery'],
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojchart'],
   function (oj, ko, $) {
 
-    function CompletedTaskViewModel() {
+    function TaskTrendChartViewModel() {
       var self = this;
       // Below are a subset of the ViewModel methods invoked by the ojModule binding
       // Please reference the ojModule jsDoc for additional available methods.
@@ -26,6 +26,7 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
        */
       self.handleActivated = function (info) {
         // Implement if needed
+        console.log("ajax reload..");
       };
 
       /**
@@ -66,11 +67,19 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
         // Implement if needed
       };
 
-      oj.Logger.info(obpmConfig.serverurl, obpmConfig.resturi, obpmConfig.adminuser, obpmConfig.adminpw);
-
-      $(document).ready(function () {
+      /* toggle button variables */
+      self.orientationValue = ko.observable('vertical');
         
-      });
+      /* chart data */
+      var lineSeries = [{name : "Me", items : [74, 62, 70, 76, 66]},
+                        {name : "Team", items : [50, 38, 46, 54, 42]}];
+  
+      var lineGroups = ["Jan", "Feb", "Mar", "Apr", "May"];
+ 
+      
+      this.lineSeriesValue = ko.observableArray(lineSeries);
+      this.lineGroupsValue = ko.observableArray(lineGroups);
+
     }
 
     /*
@@ -78,6 +87,6 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
      * each time the view is displayed.  Return an instance of the ViewModel if
      * only one instance of the ViewModel is needed.
      */
-    return new CompletedTaskViewModel();
+    return new TaskTrendChartViewModel();
   }
 );

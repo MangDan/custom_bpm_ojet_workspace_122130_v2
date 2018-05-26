@@ -6,9 +6,7 @@
 /*
  * Your application specific code will go here
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-element', 'ojs/ojrouter', 'ojs/ojknockout', 'ojs/ojarraytabledatasource',
-    'ojs/ojoffcanvas'
-  ],
+define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-element', 'ojs/ojrouter', 'ojs/ojknockout', 'ojs/ojarraytabledatasource', 'config/obpmConfig', 'ojs/ojoffcanvas'],
   function (oj, ko, moduleUtils) {
 
     oj.Router.defaults['urlAdapter'] = new oj.Router.urlParamAdapter();
@@ -131,6 +129,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-el
       // User Info used in Global Navigation area
       self.userLogin = ko.observable("john.hancock@oracle.com");
 
+      console.log("bpmContext:"+bpmContext);
+      console.log("obpmConfig.adminuser:"+obpmConfig.adminuser);
       if (bpmContext !== null) {
         if (bpmContext === obpmConfig.adminuser) {
           self.userLogin(obpmConfig.admindisplayname);

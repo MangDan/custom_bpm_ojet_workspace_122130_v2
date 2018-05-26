@@ -1,0 +1,21 @@
+<!--
+    Flex Layout 정리 (Experiment 참고)
+    oj-sm-align-items-center : 전체 Flex Layout의 중간(Middle)
+    oj-sm-flex-items-initial : 좌측으로 밀착 시키는 역할인것 같음 (잘 모르겠음 ㅜㅜ)
+    oj-sm-justify-content-center : oj-sm-flex-items-initial(required), 가운데 (align:center)
+
+-->
+<oj-bind-if test="[[progressStatus() === 'loading']]">
+        <div id="taskDetailProgress" class="oj-flex oj-sm-align-items-center oj-sm-flex-items-initial oj-sm-justify-content-center" style="height:100%">
+        <div class="oj-flex-item">
+            <oj-progress id="progressCircle" type="circle" value="-1"></oj-progress>
+        </div>
+    </div>  
+</oj-bind-if>
+<oj-bind-if test="[[progressStatus() === 'done']]">
+        <div id="taskDetail" class="oj-flex oj-sm-flex-items-initial" style="height:100%">
+                <div class="oj-flex-item">
+                    <oj-bind-text value="[[$properties.taskId]]"></oj-bind-text>
+                </div>
+            </div>
+</oj-bind-if>

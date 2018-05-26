@@ -5,10 +5,10 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery'],
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojchart'],
   function (oj, ko, $) {
 
-    function CompletedTaskViewModel() {
+    function TaskStatusChartViewModel() {
       var self = this;
       // Below are a subset of the ViewModel methods invoked by the ojModule binding
       // Please reference the ojModule jsDoc for additional available methods.
@@ -26,6 +26,7 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
        */
       self.handleActivated = function (info) {
         // Implement if needed
+        console.log("ajax reload..");
       };
 
       /**
@@ -66,11 +67,15 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
         // Implement if needed
       };
 
-      oj.Logger.info(obpmConfig.serverurl, obpmConfig.resturi, obpmConfig.adminuser, obpmConfig.adminpw);
+      self.threeDValue = ko.observable('off');
 
-      $(document).ready(function () {
-        
-      });
+      /* chart data */
+      var pieSeries = [{ name: "On time", items: [42], color: "#6bc084" },
+      { name: "On risk", items: [55], color: "#f9d465" },
+      { name: "Overdue", items: [36], color: "#eb664d" }];
+
+      this.pieSeriesValue = ko.observableArray(pieSeries);
+
     }
 
     /*
@@ -78,6 +83,6 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
      * each time the view is displayed.  Return an instance of the ViewModel if
      * only one instance of the ViewModel is needed.
      */
-    return new CompletedTaskViewModel();
+    return new TaskStatusChartViewModel();
   }
 );

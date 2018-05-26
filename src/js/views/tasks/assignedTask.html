@@ -13,86 +13,85 @@
   <div class="oj-flex">
     <div class="oj-sm-12 oj-flex-item">
       <div class="oj-panel">
-        <h3 class="oj-header-border" style="font-family:helvetica">Header</h3>
-        <div class="oj-flex">
-          <div class="oj-flex-item">
-            <div class="oj-flex">
-              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
-                <div class="panel-right-border">  <!-- Right Separate Border -->
-                  <div style="padding: 5px; height: 154px;margin:5px">
-                    <div class="oj-flex oj-flex-items-pad">
-                      <div class="oj-flex-item blue-large-font">111</div>
-                    </div>
-                    <div class="oj-flex oj-flex-items-pad">
-                      <div class="oj-flex-item">
-                        <strong>Total Task</strong>
+        <oj-collapsible id="my-task-performance" expanded='true' on-oj-before-collapse="[[taskCollapseHandler]]" on-oj-before-expand=[[taskExpandHandler]]>
+          <h3 id="h1" slot="header" class="oj-header-border" style="font-family:helvetica">Task Performance</h3>
+          <div class="oj-flex">
+            <div class="oj-flex-item">
+              <div class="oj-flex">
+                <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
+                  <div class="panel-right-border">
+                    <div style="padding: 10px; height: 154px;margin:5px">
+                      <div class="oj-flex oj-flex-items-pad">
+                        <div class="oj-flex-item blue-large-font">111</div>
+                      </div>
+                      <div class="oj-flex oj-flex-items-pad">
+                        <div class="oj-flex-item">
+                          <strong>Open Tasks</strong>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="oj-flex oj-flex-items-pad">
+                        <div class="oj-flex-item blue-large-font">111</div>
+                      </div>
+                      <div class="oj-flex oj-flex-items-pad">
+                        <div class="oj-flex-item">
+                          <strong>Tasks Completed Today</strong>
+                        </div>
                       </div>
                     </div>
-                    <div class="oj-flex">
-                      <div class="oj-flex-item">
+                  </div>
+                </div>
+                <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
+                  <div class="panel-right-border">
+                    <!-- Right Separate Border -->
+                    <div style="padding: 5px; height: 154px;margin:5px">
+                      <div class="oj-flex oj-flex-items-pad">
+                        <div class="oj-flex-item">
+                          <strong>Total Task</strong>
+                        </div>
+                      </div>
+                      <div class="oj-flex">
+                        <div class="oj-flex-item">
                           <div id='total-task-chart-container'>
-                              <div class="oj-flex oj-sm-flex-1" data-bind="ojModule: 'tasks/chart/totalTask'"></div>
+                            <div class="oj-flex oj-sm-flex-1" data-bind="ojModule: 'tasks/chart/totalTask'"></div>
                           </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
-                <div class="panel-right-border">
-                  <div style="padding: 5px; height: 154px;margin:5px">
-                    <div class="oj-flex oj-flex-items-pad">
-                      <div class="oj-flex-item blue-large-font">111</div>
-                    </div>
-                    <div class="oj-flex oj-flex-items-pad">
-                      <div class="oj-flex-item">
-                        <strong>Total
-                          <br> Message</strong>
+                <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
+                  <div class="panel-right-border">
+                    <div style="padding: 5px; height: 154px;margin:5px">
+                      <div class="oj-flex oj-flex-items-pad">
+                        <div class="oj-flex-item">
+                          <strong>Task Status</strong>
+                        </div>
                       </div>
-                    </div>
-                    <div class="oj-flex oj-flex-items-pad">
-                      <div class="oj-flex-item">
-                        Graph....
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
-                <div class="panel-right-border">
-                  <div style="padding: 5px; height: 154px;margin:5px">
-                    <div class="oj-flex oj-flex-items-pad">
-                      <div class="oj-flex-item blue-large-font">111</div>
-                    </div>
-                    <div class="oj-flex oj-flex-items-pad">
-                      <div class="oj-flex-item">
-                        <strong>Total
-                          <br> Message</strong>
-                      </div>
-                    </div>
-                    <div class="oj-flex oj-flex-items-pad">
-                      <div class="oj-flex-item">
-                        Graph....
+                      <div class="oj-flex">
+                        <div class="oj-flex-item">
+                          <div id='task-status-chart-container'>
+                            <div class="oj-flex oj-sm-flex-1" data-bind="ojModule: 'tasks/chart/taskStatus'"></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
-                <div class="panel-right-border">
-                  <div style="padding: 5px; height: 154px;margin:5px">
-                    <div class="oj-flex oj-flex-items-pad">
-                      <div class="oj-flex-item blue-large-font">111</div>
-                    </div>
-                    <div class="oj-flex oj-flex-items-pad">
-                      <div class="oj-flex-item">
-                        <strong>Total
-                          <br> Message</strong>
+                <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
+                  <div class="panel-right-border">
+                    <div style="padding: 5px; height: 154px;margin:5px">
+                      <div class="oj-flex oj-flex-items-pad">
+                        <div class="oj-flex-item">
+                          <strong>Task Trend</strong>
+                        </div>
                       </div>
-                    </div>
-                    <div class="oj-flex oj-flex-items-pad">
-                      <div class="oj-flex-item">
-                        Graph....
+                      <div class="oj-flex">
+                        <div class="oj-flex-item">
+                          <div id='task-status-chart-container'>
+                            <div class="oj-flex oj-sm-flex-1" data-bind="ojModule: 'tasks/chart/taskTrend'"></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -100,35 +99,20 @@
               </div>
             </div>
           </div>
-        </div>
+        </oj-collapsible>
       </div>
     </div>
   </div>
   <div class="oj-flex" style="margin-top:20px">
     <div class="oj-sm-12 oj-flex-item">
-      <div class="oj-panel">
-        <h3 class="oj-header-border" style="font-family:helvetica">Header</h3>
-        <div class="oj-flex">
-          <div class="oj-flex-item">
-            <div class="oj-flex">
-              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
-                <div class="panel-right-border" style="padding: 5px; height: 154px">
-
-
-                </div>
-              </div>
-              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
-                <div class="panel-right-border" style="padding: 5px; height: 154px">test</div>
-              </div>
-              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
-                <div class="panel-right-border" style="padding: 5px; height: 154px">test</div>
-              </div>
-              <div class="oj-sm-12 oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item">
-                <div class="panel-right-border" style="padding: 5px; height: 154px">test</div>
-              </div>
-            </div>
+      <div id="task-list-page" class="oj-panel">
+        <oj-collapsible id="my-task-list" expanded='true' on-oj-before-collapse="[[taskCollapseHandler]]" on-oj-before-expand=[[taskExpandHandler]]>
+          <h3 id="h1" slot="header" class="oj-header-border" style="font-family:helvetica">Tasks</h3>
+          <div data-bind="ojModule: {name: modulePath, 
+          animation: oj.ModuleAnimations.switcher(switcherCallback),
+          params: {currentTaskModule: currentTaskModule, taskId: taskId, contentHeight: contentHeight,query: 'status=assigned'}}">
           </div>
-        </div>
+        </oj-collapsible>
       </div>
     </div>
   </div>

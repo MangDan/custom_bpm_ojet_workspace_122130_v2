@@ -1,7 +1,7 @@
 {
     "appName" : "Custom BPM Workspace",
     "appVersion" : "12.2.1.3.0",
-    "serverurl" : "http://soabpm-vm:7003/",
+    "serverurl" : "http://localhost:8000/",
     "resturi" : "bpm/services/rest/",
     "adminuser" : "weblogic",
     "adminpw" : "welcome1",

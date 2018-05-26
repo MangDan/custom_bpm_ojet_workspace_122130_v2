@@ -1,0 +1,38 @@
+<div class="oj-flex">
+  <div class="oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item">
+    <oj-label for="sortBy" class="oj-label-inline">Sort by:</oj-label>
+    <oj-select-one id="sortBy" value="{{taskOrder}}" style="max-width:11em" on-value-changed="[[handleSortCriteriaChanged]]">
+      <oj-option value="title">Title</oj-option>
+      <oj-option value="lh">Price: Low to High</oj-option>
+      <oj-option value="hl">Price: High to Low</oj-option>
+      <oj-option value="reviews">Most Reviews</oj-option>
+      <oj-option value="date">Publication Date</oj-option>
+    </oj-select-one>
+  </div>
+  <div class="oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item">
+    <oj-paging-control id="tasksPaging" data="[[listTaskDataSource]]" page-size="{{pageSize}}" mode='page' pageOptionsChanged=""></oj-paging-control>
+  </div>
+</div>
+<oj-list-view id="listview" aria-label="list using json data" data="[[listTaskDataSource]]" selection-mode="single" on-current-item-changed="[[gotoTaskDetail]]"
+  drill-mode="none" data-bind="style: {height:large() ? contentHeight : '330px',overflow:'auto'}">
+  <template slot="itemTemplate">
+    <!-- template for items -->
+    <div class="oj-flex" style="flex-wrap: nowrap">
+      <span class="oj-flex-item" data-bind="style: { backgroundImage: 'url(\'images/listView/' + $current.data.type + '.png\')', 
+            backgroundRepeat: 'no-repeat', backgroundSize: '40px 40px', minHeight: '40px', minWidth: '40px', maxWidth: '40px' }, attr: { 'aria-label': $current.data.type }">
+      </span>
+      <div class="oj-flex-item">
+        <div>
+          <span>
+            <oj-bind-text value="[[$current.data.title]]"></oj-bind-text>
+          </span>
+        </div>
+        <div>
+          <span class="oj-text-xs oj-text-secondary-color">Last modified on
+            <oj-bind-text value="[[$current.data.assignedDate]]"></oj-bind-text>
+          </span>
+        </div>
+      </div>
+    </div>
+  </template>
+</oj-list-view>

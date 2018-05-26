@@ -1,0 +1,13 @@
+{
+    "name": "task-detail-component",
+    "description": "111",
+    "version": "1.0.0",
+    "displayName": "Task-detail Component",
+    "jetVersion": ">=3.0.0 <=5.0.0",
+    "properties": {
+        "taskId": {
+            "description": "The employee's full name.",
+            "type": "number"
+        }
+    }
+}

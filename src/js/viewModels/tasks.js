@@ -15,7 +15,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojkeyset', 'ojs/ojbutton', 'ojs
     function TasksViewModel() {
       var self = this;
 
-      let default_page = "assignedTask";
+      //let default_page = "assignedTask";
       // router 초기화
       self.router;
 
@@ -37,7 +37,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojkeyset', 'ojs/ojbutton', 'ojs
         // 이미 생성했으면, 패스
         if (self.router) {
           // 상단 네비게이션 이동시에만 동작.
-          self.currentModule(default_page);
+          //self.currentModule(default_page);
           return;
         }
 
@@ -56,9 +56,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojkeyset', 'ojs/ojbutton', 'ojs
             },
             'managedTask': {
               label: 'Managed Task'
-            },
-            'taskDetail/{taskId}': {
-              label: 'Task Detail'
             },
             'startTask1': {
               label: 'Start Task1'
@@ -131,7 +128,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojkeyset', 'ojs/ojbutton', 'ojs
         self._toggleOpenClose();
       }
 
-      self.handleAttached = function(info) {
+      self.handleAttached = function (info) {
         oj.OffcanvasUtils.setupResponsive(self.infoEndDrawer);
       }
 
@@ -151,7 +148,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojkeyset', 'ojs/ojbutton', 'ojs
         }
       }
       // offcanvas code end
-      
+
       // Menu에서 Item 선택만 가능하도록...
       self.itemOnly = function (context) {
         return context['leaf'];
@@ -160,15 +157,33 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojkeyset', 'ojs/ojbutton', 'ojs
       // To-Do : Module 정리
       // Routing은 Redirect 개념이고, Module은 Iframe과 비슷한 기능으로 보면 됨.
       // Routing은 Child Route 정의후 Module의 Configure안에서 Route Name으로 Module에 Attach가 가능.
-      self.currentModule = ko.observable(default_page);
+      //self.currentModule = ko.observable(default_page);
 
-      self.modulePath = ko.pureComputed(
-        function () {
-          var name = self.currentModule();
+      //self.modulePath = ko.pureComputed(
+      //  function () {
+      //    var name = self.currentModule();
 
-          return (name === 'oj:blank' ? name : "tasks/" + name);
+      //    return (name === 'oj:blank' ? name : "tasks/" + name);
+      //  }
+      //);
+
+      self.moduleConfig = ko.pureComputed(function () {
+        var mc = self.router.observableModuleConfig();
+        var name = mc.name();
+        /*
+         * Create a module config from the router's observableModuleConfig
+         * so that our module can access the observable state parameters.
+         */
+        var config = {};
+        var key;
+        for (key in mc) {
+          if (mc.hasOwnProperty(key)) {
+            config[key] = mc[key];
+          }
         }
-      );
+        config.name = 'tasks/' + name;
+        return config;
+      });
 
       // To-Do :  createChildRouter 정리 (Root 에서 만들어진 Child(This)에 대해서 navData 생성)
       // Navigation setup
@@ -189,7 +204,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojkeyset', 'ojs/ojbutton', 'ojs
           label: "Managed Task",
           iconStyleClass: "oj-navigationlist-item-icon demo-catalog-icon-24 demo-icon-font-24"
         }]
-      },{
+      }, {
         label: 'Start Task',
         id: 'startTask',
         iconStyleClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-fire-icon-24',
@@ -211,7 +226,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojkeyset', 'ojs/ojbutton', 'ojs
       self.selectHandler = function (event) {
         if ('taskMenu' === event.target.id && event.detail.originalEvent) {
           //self.router.go(event.detail.key); 라우터는 동일한 페이지에서 이동할 때 사용하는 듯...
-          self.currentModule(event.detail.key);
+          //self.currentModule(event.detail.key);
+          self.router.go(event.detail.key);
         }
       };
     }

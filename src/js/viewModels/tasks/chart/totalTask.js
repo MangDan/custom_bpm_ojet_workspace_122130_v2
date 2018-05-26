@@ -69,81 +69,29 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojchart'],
 
       self.barSeriesValue = ko.observableArray();
       self.barGroupsValue = ko.observableArray();
-      self.legendSectionsValue = ko.observableArray();
 
-      var data1 = [{
-          name: 'Coke',
-          value: 42
-        },
-        {
-          name: 'Fanta',
-          value: 55
-        },
-        {
-          name: 'Sprite',
-          value: 36
-        },
-        {
-          name: 'Dr Pepper',
-          value: 22
-        },
-        {
-          name: 'Pepsi',
-          value: 12
-        },
-        {
-          name: 'Pepsi',
-          value: 12
-        },
-        {
-          name: 'Pepsi',
-          value: 12
-        }
-      ];
-
-      /* Returns bar series array based on provided data and colorHandler */
-      var getBarSeries = function (data, colorHandler) {
-        var items = [];
-        for (var i = 0; i < data.length; i++) {
-          items.push({
-            value: data[i].value,
-            text: data[i].name,
-            color: colorHandler.getValue(data[i].name),
-          });
-        }
-        return [{
-          items: items
-        }];
-      };
+      var barSeries = [{
+        name: "Assign", items: [{ y: 42, label: "42" }, { y: 34, label: "34" },
+        { y: 42, label: "42" }, { y: 34, label: "34" }, { y: 34, label: "34" }, { y: 34, label: "34" }, { y: 34, label: "34" }]
+      },
+      {
+        name: "Complete", items: [{ y: 55, label: "55" }, { y: 30, label: "30" },
+        { y: 55, label: "55" }, { y: 30, label: "30" }, { y: 34, label: "34" }, { y: 34, label: "34" }, { y: 34, label: "34" }]
+      },
+      {
+        name: "Overdue", items: [{ y: 36, label: "36" }, { y: 50, label: "50" },
+        { y: 36, label: "36" }, { y: 50, label: "50" }, { y: 34, label: "34" }, { y: 34, label: "34" }, { y: 34, label: "34" }]
+      }];
 
       /* Returns bar groups array based on provided data */
-      getBarGroups = function (data) {
-        var groups = [];
-        for (var i = 0; i < data.length; i++) {
-          groups.push(data[i].name);
-        }
+      getBarGroups = function (barSeries) {
+        var groups = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
         return groups;
       };
 
-      self.yAxis = ko.pureComputed(function () {
-        return {
-          rendered: "off",
-          majorTick: {
-            lineWidth: 0
-          }
-        };
-      });
-
-      /* chart style defaults */
-      self.styleDefaults = ko.pureComputed(function () {
-        return {
-          barGapRatio: 0.1
-        };
-      });
-
       var colorHandler = new oj.ColorAttributeGroupHandler();
-      self.barSeriesValue(getBarSeries(data1, colorHandler));
-      self.barGroupsValue(getBarGroups(data1));
+      self.barSeriesValue(barSeries);
+      self.barGroupsValue(getBarGroups(barSeries));
 
     }
 

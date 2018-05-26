@@ -1571,3 +1571,28 @@ html[dir="rtl"] .demo-oracle-icon {
   font-size: 35px;
   padding-top:10px;
 }
+
+
+.task-list-container
+{
+  position: relative;
+  width: 100%;
+  height: 320px;
+}
+
+.task-panel
+{
+  height: calc(100% - 40px);
+}
+
+.task-page
+{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: white;
+}

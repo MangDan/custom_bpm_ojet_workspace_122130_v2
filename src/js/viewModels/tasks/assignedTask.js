@@ -5,11 +5,12 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojlistview', 'ojs/ojmodel', 'ojs/ojbutton', 'ojs/ojgauge'],
-  function (oj, ko, $) {
+define(['ojs/ojcore', 'knockout', 'jquery', 'services/taskQueryService', 'ojs/ojlistview', 'ojs/ojmodel', 'ojs/ojmoduleanimations', 'ojs/ojcollapsible', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojselectcombobox'],
+  function (oj, ko, $, taskQueryService) {
     function AssignedTaskViewModel() {
       var self = this;
 
+      self.router;
       // Below are a subset of the ViewModel methods invoked by the ojModule binding
       // Please reference the ojModule jsDoc for additional available methods.
 
@@ -26,9 +27,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojlistview', 'ojs/ojmodel', 'oj
        */
       self.handleActivated = function (info) {
         // Implement if needed
-        //"RELOAD 할 AJAX를 여기서 다시 호출한다.... 해당 페이지에 REFRESH 아이콘도 넣을 수 있을 것으로 봄...
-        //AJAX는 SYNC
-        // Layout 및 Collection 진행...
       };
 
       /**
@@ -71,61 +69,56 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojlistview', 'ojs/ojmodel', 'oj
 
       oj.Logger.info(obpmConfig.serverurl, obpmConfig.resturi, obpmConfig.adminuser, obpmConfig.adminpw);
 
-      var prodArray = [{
-          prodNr: '1',
-          amount: 25,
-          productName: 'Syrup',
-          productTitle: 'Glucose-Fructose syrup',
-          productCode: '76391',
-          usageRatio: 10,
-          stockQuantity: 150,
-          orderQuantity: 30
-        },
-        {
-          prodNr: '2',
-          amount: 80,
-          productName: 'Juice',
-          productTitle: 'Natural cold pressed juice',
-          productCode: '86402',
-          usageRatio: 30,
-          stockQuantity: 230,
-          orderQuantity: 1500
-        },
-        {
-          prodNr: '3',
-          amount: 50,
-          productName: 'Pectin',
-          productTitle: 'Extracted from citrus fruits',
-          productCode: '75201',
-          usageRatio: 55,
-          stockQuantity: 40,
-          orderQuantity: 10
-        },
-        {
-          prodNr: '4',
-          amount: 40,
-          productName: 'Fructose/Sugar',
-          productTitle: 'Derived from sugar cane, sugar beets, and maize',
-          productCode: '83419',
-          usageRatio: 25,
-          stockQuantity: 250,
-          orderQuantity: 150
-        },
-        {
-          prodNr: '5',
-          amount: 10,
-          productName: 'Citric Acid',
-          productTitle: 'Extracted from lemons and limes',
-          productCode: '54814',
-          usageRatio: 99,
-          stockQuantity: 110,
-          orderQuantity: 11
-        }
-      ];
-      self.datasource = new oj.ArrayTableDataSource(prodArray, {
-        idAttribute: 'prodNr'
-      });
+      let default_module = "list";
 
+      self.currentTaskModule = ko.observable(default_module);
+      self.taskId = ko.observable();
+      self.contentHeight = ko.observable("calc(100vh - 620px)");
+
+      self.modulePath = ko.pureComputed(
+        function () {
+          return ('tasks/common/' + self.currentTaskModule());
+        }
+      );
+
+      self.switcherCallback = function (context) {
+        if(self.currentTaskModule() === 'list')
+          return 'navParent';
+        else
+          return 'navChild';
+      };
+
+      taskExpandHandler = function(event) {
+        oj.Logger.info("expand:" + event.target.id);
+        if(event.target.id === "my-task-performance") {
+          self.contentHeight("calc(100vh - 620px)");
+        }
+      };
+
+      taskCollapseHandler = function(event) {
+        oj.Logger.info("collapse:" + event.target.id);
+        if(event.target.id === "my-task-performance") {
+          self.contentHeight("calc(100vh - 425px)");
+        }
+      };
+      // not used
+      self.moduleConfig = ko.pureComputed(function () {
+        var mc = self.router.observableModuleConfig();
+        var name = mc.name();
+        /*
+         * Create a module config from the router's observableModuleConfig
+         * so that our module can access the observable state parameters.
+         */
+        var config = {};
+        var key;
+        for (key in mc) {
+          if (mc.hasOwnProperty(key)) {
+            config[key] = mc[key];
+          }
+        }
+        config.name = 'tasks/common/' + name;
+        return config;
+      });
     }
 
     /*
