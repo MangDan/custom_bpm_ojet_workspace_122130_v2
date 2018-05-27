@@ -1,0 +1,40 @@
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<div id="oj-hybrid-padding" tyle="width: 1px; min-width: 100%;">
+    <oj-input-text id="filter" maxlength="30" placeholder="Title" value=""></oj-input-text>
+    <oj-button disabled='false' chroming='half' on-oj-action="[[refresh]]">
+        <span slot="startIcon" class="oj-button-icon oj-fwk-icon oj-fwk-icon-magnifier"></span>
+      </oj-button>
+    <br>
+    <oj-table id='openInstanceList' aria-label='Departments Table' data='[[pagingDatasource]]' columns='[{"headerText": "Work Order", "field": "processId", "style": "width:100px"},
+                             {"headerText": "Title", "field": "title"},
+                             {"headerText": "Process", "field": "processName", "style": "width:200px"},
+                             {"headerText": "Status", "field": "state", "style": "width:100px"},
+                             {"headerText": "Created Date", "field": "createdDate", "style": "width:100px"}]' row-renderer='[[oj.KnockoutTemplateUtils.getRenderer("instances_tmpl", true)]]'
+        selection-mode='{"row": "single", "column": "single"}' display="grid" columns-default.resizable="enabled" ow-renderer='[[oj.KnockoutTemplateUtils.getRenderer("instances_tmpl", true)]]'
+        style='width: 100%;'>
+        <oj-paging-control id="paging" data='[[pagingDatasource]]' page-size='10' slot='bottom' on-click=[[clickPaging]]>
+        </oj-paging-control>
+    </oj-table>
+    <script type="text/html" id="instances_tmpl">
+        <tr>
+          <td data-bind="text: processId"></td>
+          <td><a data-bind="text: title, click: $parent.instanceAuditDialog" ></a></td>
+          <td><a data-bind="text: processName, click: $parent.instanceAuditDialog2" ></td>
+          <td data-bind="text: state"></td>
+          <td data-bind="text: createdDate"></td>
+        </tr>
+    </script>
+</div>
+<div id="instanceAuditDiagramPopupWrapper">
+    <oj-dialog style="display:none;width:95vw;height:95vh" id="instanceAuditDiagramDialog" modality="modal">
+        <div slot="header">
+            <span id="dialogTitleId" class="oj-dialog-title" data-bind="text:instanceTitle">
+            </span>
+        </div>
+        <div slot="body" id="instanceAuditTrace">
+        </div>
+    </oj-dialog>
+</div>

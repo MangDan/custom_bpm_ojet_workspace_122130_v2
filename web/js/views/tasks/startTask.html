@@ -1,0 +1,150 @@
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<div class="oj-hybrid-padding">
+
+  <div class="oj-flex-item demo-bread-crumbs" style="padding: 7px 0">
+    <div class="oj-flex-item oj-md-only-hide oj-sm-only-hide">
+
+      <a class="demo-breadcrumbs-link demo-breadcrumbs-font" id="bc_rootLayoutNav">
+        작업 목록
+      </a>
+      <span class="demo-breadcrumbs-point">&gt;</span>
+      <a class="demo-breadcrumbs-link demo-breadcrumbs-font" id="bc_rootLayoutNav_collapsible">
+        시작 업무
+      </a>
+    </div>
+  </div>
+
+  <div class="oj-label" style="float: right;">
+    <span class="oj-label-required-icon" style="float: left; margin-right: 6px;"></span>
+    <label>Required</label>
+  </div>
+  <div id="accountDetailsHeader" class="cp-oj-form-header">
+    <div class="cp-oj-form-header-text sectionHeader">지장이설 접수등록</div>
+  </div>
+  <div id="accountDetailsSubTab" class="detailpage-subtabarea form-section">
+    <div id="form-container1" class="oj-form-layout cp-oj-form-layout">
+      <!-- Left -->
+      <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline oj-form-cols-labels-inline oj-form-cols-max2"
+        style="border:0px solid">
+        <div class="oj-flex">
+
+          <div class="oj-flex-item">
+            <div class="oj-label oj-component oj-inputtext-label">
+              <div class="oj-label-group">
+                <span class="oj-label-required-icon oj-component-icon" role="img" title="Required" aria-label="Required"></span>
+                <label for="receiptTitle" class="oj-component-initnode">접수 제목</label>
+              </div>
+            </div>
+          </div>
+          <div class="oj-flex-item">
+            <div class="oj-inputtext oj-form-control oj-component oj-required">
+              <oj-input-text id="receiptTitle" required value="{{receiptTitle}}" placeholder="접수 제목" Required></oj-input-text>
+            </div>
+          </div>
+          <div class="oj-flex-item">
+            <div class="oj-label oj-component oj-inputtext-label">
+              <div class="oj-label-group">
+                <span class="oj-label-required-icon oj-component-icon" role="img" title="Required" aria-label="Required"></span>
+                <label for="receiptDate" class="oj-component-initnode">접수 일자</label>
+              </div>
+            </div>
+          </div>
+          <div class="oj-flex-item">
+            <div class="oj-inputtext oj-form-control oj-component oj-required">
+              <oj-input-date id="receiptDate" value={{currentDay}} placeholder="접수 일자" converter=[[dateConverter]] readonly></oj-input-date>
+            </div>
+          </div>
+          <div class="oj-flex-item">
+            <div class="oj-label oj-component oj-inputtext-label">
+              <div class="oj-label-group">
+                <label for="receiptContent" class="oj-component-initnode">접수 내용</label>
+              </div>
+            </div>
+          </div>
+          <div class="oj-flex-item">
+            <div class="oj-inputtext oj-form-control oj-component oj-required">
+              <oj-text-area id="receiptContent" value='' rows="6" placeholder="접수 내용"></oj-text-area>
+            </div>
+          </div>
+        </div>
+        <!-- Right -->
+
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <div class="oj-label oj-component oj-inputtext-label">
+              <div class="oj-label-group">
+                <span class="oj-label-required-icon oj-component-icon" role="img" title="Required" aria-label="Required"></span>
+                <label for="receiptor" class="oj-component-initnode">접수자</label>
+              </div>
+            </div>
+          </div>
+          <div class="oj-flex-item">
+            <div class="oj-inputtext oj-form-control oj-component oj-required">
+              <oj-input-text id="receiptor" required value="{{receiptor}}" placeholder="접수자" readonly></oj-input-text>
+            </div>
+          </div>
+          <div class="oj-flex-item">
+            <div class="oj-label oj-component oj-inputtext-label">
+              <div class="oj-label-group">
+                <span class="oj-label-required-icon oj-component-icon" role="img" title="Required" aria-label="Required"></span>
+                <label for="inspector" class="oj-component-initnode">실사주체</label>
+              </div>
+            </div>
+          </div>
+          <div class="oj-flex-item">
+            <div class="oj-inputtext oj-form-control oj-component oj-required">
+              <oj-combobox-one id="inspector" value="공사업체" style="max-width:20em">
+                <oj-option value="공사업체">공사업체</oj-option>
+                <oj-option value="ENP">ENP</oj-option>
+                <a slot="end" id="search-button" class="demo-search-button oj-fwk-icon-magnifier oj-fwk-icon oj-clickable-icon-nocontext"
+                  style="width: 32px;" role="button" aria-label="search" on-click=""></a>
+              </oj-combobox-one>
+            </div>
+          </div>
+          <div class="oj-flex-item">
+            <div class="oj-label oj-component oj-inputtext-label">
+              <div class="oj-label-group">
+                <span class="oj-label-required-icon oj-component-icon" role="img" title="Required" aria-label="Required"></span>
+                <label for="receiptType" class="oj-component-initnode">접수 구분</label>
+              </div>
+            </div>
+          </div>
+          <div class="oj-flex-item">
+            <div class="oj-inputtext oj-form-control oj-component oj-required">
+              <oj-combobox-one id="receiptType" value="1" style="max-width:20em">
+                <oj-option value="1">지장이설 접수</oj-option>
+                <oj-option value="2">한전위해개소등록</oj-option>
+                <a slot="end" id="search-button" class="demo-search-button oj-fwk-icon-magnifier oj-fwk-icon oj-clickable-icon-nocontext"
+                  style="width: 32px;" role="button" aria-label="search" on-click=""></a>
+              </oj-combobox-one>
+            </div>
+          </div>
+          <div class="oj-flex-item">
+            <div class="oj-label oj-component oj-inputtext-label">
+              <div class="oj-label-group">
+                <label for="description" class="oj-component-initnode">기타 사항</label>
+              </div>
+            </div>
+          </div>
+          <div class="oj-flex-item">
+            <div class="oj-inputtext oj-form-control oj-component oj-required">
+              <oj-text-area id="description" value='' rows="3" placeholder="기타 사항"></oj-text-area>
+            </div>
+          </div>
+        </div>
+        <div style="text-align: right;" >
+          <oj-button class='oj-button-primary' disabled='false' chroming='full' on-oj-action="[[submit]]">
+            <span slot="startIcon" class="oj-fwk-icon oj-fwk-icon-clock"></span>
+            접수
+          </oj-button>
+        </div>
+        <!-- Messages -->
+        <oj-messages id="oj-messages-id" messages="{{resultMessages}}" display="general" on-oj-close="[[closeResultMessagesHandler]]" position="[[resultMessagePosition]]">
+        </oj-messages>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+{
+    "summaryFields":[
+        {
+            "category":"FlexField",
+            "dataType":"",
+            "displayName":"",
+            "name":"Reason For Vacation",
+            "readOnly":"true",
+            "value":""
+        },
+        {
+            "category":"Standard",
+            "dataType":"java.lang.Integer",
+            "displayName":"Priority",
+            "name":"PRIORITY",
+            "readOnly":"false",
+            "value":"3"
+        },
+        {
+            "category":"Standard",
+            "dataType":"oracle.bpel.services.workflow.task.model.IdentityTypeImpl",
+            "displayName":"systemAttributes.assignees",
+            "name":"ASSIGNEES",
+            "readOnly":"true",
+            "value":"jstein"
+        },
+        {
+            "category":"Payload",
+            "dataType":"java.lang.String",
+            "displayName":"",
+            "name":"Purchase Order Id",
+            "readOnly":"false",
+            "value":""
+        },
+        {
+            "category":"Payload",
+            "dataType":"java.lang.String",
+            "displayName":"",
+            "name":"Ship Date",
+            "readOnly":"false",
+            "value":""
+        },
+        {
+            "category":"Payload",
+            "dataType":"java.lang.String",
+            "displayName":"",
+            "name":"Comments",
+            "readOnly":"false",
+            "value":""
+        }
+    ],
+    "priority":"0"
+}

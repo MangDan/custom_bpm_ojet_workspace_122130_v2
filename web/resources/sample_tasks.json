@@ -1,0 +1,156 @@
+{
+    "totalResult": true,
+    "user": {
+        "rel": "user",
+        "href": "http://example.com/bpm/api/3.0/identities/user/jlondon"
+    },
+    "count": 5,
+    "hasMore": false,
+    "items": [
+        {
+            "updatedDate": "2015-05-27 00:03:37",
+            "priority": 1,
+            "creatorName": "jstein",
+            "assignedDate": "2015-05-27 00:03:37",
+            "createdDate": "2015-05-27 00:03:37",
+            "ownerUser": "cdickens",
+            "href": "http://example.com/bpm/api/3.0/tasks/200012",
+            "assignees": {
+                "totalResult": false,
+                "hasMore": false,
+                "items": [
+                    {
+                        "levels": 0,
+                        "type": "user",
+                        "id": "jlondon"
+                    }
+                ]
+            },
+            "number": 200012,
+            "hasSubTasks": false,
+            "title": "myTodoTaskTestingV3",
+            "rel": "self",
+            "type": "task",
+            "state": "ASSIGNED",
+            "dueDate": "2015-07-26 11:58:59"
+        },
+        {
+            "updatedDate": "2015-05-27 00:03:37",
+            "priority": 1,
+            "creatorName": "jstein",
+            "assignedDate": "2015-05-27 00:03:37",
+            "createdDate": "2015-05-27 00:03:37",
+            "ownerUser": "cdickens",
+            "href": "http://example.com/bpm/api/3.0/tasks/200012",
+            "assignees": {
+                "totalResult": false,
+                "hasMore": false,
+                "items": [
+                    {
+                        "levels": 0,
+                        "type": "user",
+                        "id": "jlondon"
+                    }
+                ]
+            },
+            "number": 200013,
+            "hasSubTasks": false,
+            "title": "myTodoTaskTestingV3_2",
+            "rel": "self",
+            "type": "task",
+            "state": "ASSIGNED",
+            "dueDate": "2015-07-26 11:58:59"
+        },
+        {
+            "updatedDate": "2015-05-27 00:03:37",
+            "priority": 1,
+            "creatorName": "jstein",
+            "assignedDate": "2015-05-27 00:03:37",
+            "createdDate": "2015-05-27 00:03:37",
+            "ownerUser": "cdickens",
+            "href": "http://example.com/bpm/api/3.0/tasks/200012",
+            "assignees": {
+                "totalResult": false,
+                "hasMore": false,
+                "items": [
+                    {
+                        "levels": 0,
+                        "type": "user",
+                        "id": "jlondon"
+                    }
+                ]
+            },
+            "number": 200014,
+            "hasSubTasks": false,
+            "title": "myTodoTaskTestingV3_3",
+            "rel": "self",
+            "type": "task",
+            "state": "ASSIGNED",
+            "dueDate": "2015-07-26 11:58:59"
+        },
+        {
+            "updatedDate": "2015-05-27 00:03:37",
+            "priority": 1,
+            "creatorName": "jstein",
+            "assignedDate": "2015-05-27 00:03:37",
+            "createdDate": "2015-05-27 00:03:37",
+            "ownerUser": "cdickens",
+            "href": "http://example.com/bpm/api/3.0/tasks/200012",
+            "assignees": {
+                "totalResult": false,
+                "hasMore": false,
+                "items": [
+                    {
+                        "levels": 0,
+                        "type": "user",
+                        "id": "jlondon"
+                    }
+                ]
+            },
+            "number": 200015,
+            "hasSubTasks": false,
+            "title": "myTodoTaskTestingV3_4",
+            "rel": "self",
+            "type": "task",
+            "state": "ASSIGNED",
+            "dueDate": "2015-07-26 11:58:59"
+        },
+        {
+            "updatedDate": "2015-05-27 00:03:37",
+            "priority": 1,
+            "creatorName": "jstein",
+            "assignedDate": "2015-05-27 00:03:37",
+            "createdDate": "2015-05-27 00:03:37",
+            "ownerUser": "cdickens",
+            "href": "http://example.com/bpm/api/3.0/tasks/200012",
+            "assignees": {
+                "totalResult": false,
+                "hasMore": false,
+                "items": [
+                    {
+                        "levels": 0,
+                        "type": "user",
+                        "id": "jlondon"
+                    }
+                ]
+            },
+            "number": 200016,
+            "hasSubTasks": false,
+            "title": "myTodoTaskTestingV3_5",
+            "rel": "self",
+            "type": "task",
+            "state": "ASSIGNED",
+            "dueDate": "2015-07-26 11:58:59"
+        }
+    ],
+    "links": [
+        {
+            "rel": "back",
+            "href": "http://example.com/bpm/api/3.0/"
+        },
+        {
+            "rel": "self",
+            "href": "http://example.com/bpm/api/3.0/tasks?status=ASSIGNED&priority=&assignment=MY_AND_GROUP&keyword=&limit=25&offset=0"
+        }
+    ]
+}

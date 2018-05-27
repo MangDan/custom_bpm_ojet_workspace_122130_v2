@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+
+<!-- ************************ IMPORTANT INFORMATION ************************************
+  This web navigation drawer template is provided as an example of how to configure
+  a JET web application with a navigation drawer as a single page application
+  using ojRouter and ojModule.  It contains the Oracle JET framework and a default
+  requireJS configuration file to show how JET can be setup in a common application.
+  This project template can be used in conjunction with demo code from the JET
+  website to test JET component behavior and interactions.
+
+  Any CSS styling with the prefix "demo-" is for demonstration only and is not
+  provided as part of the JET framework.
+
+  Please see the demos under Cookbook/Patterns/App Shell: Web and the CSS documentation
+  under Support/API Docs/Non-Component Styling on the JET website for more information on how to use 
+  the best practice patterns shown in this template.
+
+  Aria Landmark role attributes are added to the different sections of the application
+  for accessibility compliance. If you change the type of content for a specific
+  section from what is defined, you should also change the role value for that
+  section to represent the appropriate content type.
+  ***************************** IMPORTANT INFORMATION ************************************ -->
+<html lang="en-us">
+  <head>
+    <title>Login Page</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+    <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
+    <!-- This is the main css file for the default Alta theme -->
+    <!-- injector:theme -->
+    <link rel="stylesheet" href="css/alta/5.0.0/web/alta.min.css" type="text/css"/>
+    <!-- endinjector -->
+    
+    <!-- This contains icon fonts used by the starter template -->
+    <link rel="stylesheet" href="css/demo-alta-site-min.css" type="text/css"/>
+
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        form {border: 3px solid #f1f1f1;}
+        
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: #003b4d;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        button:hover {
+            opacity: 0.8;
+        }
+        
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+        
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+        }
+        
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
+        }
+        
+        .container {
+            padding: 16px;
+        }
+        
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+        
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+               display: block;
+               float: none;
+            }
+            .cancelbtn {
+               width: 100%;
+            }
+        }
+        </style>
+  </head>
+  <body style="text-align:center">
+    <form style="width: 40vw;margin-left: auto;margin-right: auto;margin-top: 80px;display: inline-block;">
+        <div class="imgcontainer" >
+          <img src="css/images/img_avatar2.png" alt="Avatar" class="avatar">
+        </div>
+      
+        <div class="container">
+          <label for="username"><b>Username</b></label>
+          <oj-input-text id="username" value="{{username}}"></oj-input-text>
+      
+          <label for="password"><b>Password</b></label>
+          <oj-input-password id="password" value="{{password}}"></oj-input-password>
+              
+          <button type="submit" data-bind="click: login,
+          ojComponent: { component: 'ojButton'}">Login</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+        </div>
+        <div class="container" style="background-color:#f1f1f1">
+        </div>
+    <script type="text/javascript" src="js/libs/require/require.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+</div>
+  </form>
+  </body>
+</html>

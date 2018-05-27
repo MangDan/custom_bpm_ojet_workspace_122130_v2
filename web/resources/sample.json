@@ -1,0 +1,198 @@
+{
+    "summaryFields": [
+        {
+            "dataType": "java.lang.String",
+            "name": "taskId",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "taskAction",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "taskActorToken",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "businessKey",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "receiptTitle",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "receiptContent",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "receiptDate",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "receiptor",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "inspector",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "receiptType",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "description",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "judgeConsignment",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "causeConstruction",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "investmentReview",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "publicPriceRequired",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "autoDesign",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "processingType",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "constructionType",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "barcodeEquipment",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "preparationCompletionDrawing",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "makeremoveMaterials",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "customField1",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "customField2",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        },
+        {
+            "dataType": "java.lang.String",
+            "name": "customField3",
+            "readOnly": "false",
+            "value": null,
+            "displayName": "",
+            "category": "Payload"
+        }
+    ],
+    "comment": null,
+    "priority": 0
+}
