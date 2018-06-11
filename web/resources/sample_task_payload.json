@@ -29,8 +29,8 @@
             "dataType":"java.lang.String",
             "displayName":"",
             "name":"Purchase Order Id",
-            "readOnly":"false",
-            "value":""
+            "readOnly":"true",
+            "value":"111"
         },
         {
             "category":"Payload",
@@ -38,15 +38,21 @@
             "displayName":"",
             "name":"Ship Date",
             "readOnly":"false",
-            "value":""
-        },
-        {
+            "value":"222"
+        },{
+            "category":"Payload",
+            "dataType":"java.lang.Integer",
+            "displayName":"Priority",
+            "name":"Priority",
+            "readOnly":"false",
+            "value":"3"
+        },{
             "category":"Payload",
             "dataType":"java.lang.String",
-            "displayName":"",
+            "displayName":"Comments",
             "name":"Comments",
             "readOnly":"false",
-            "value":""
+            "value":"sdfsdfsdfsdfsdfsdfsdfsdfsdfsdfdaaaaaakkjahsdkajsdhakjshdkajshdkajshdkjasdhakjsdhaksjdakjshdkajsdhakjsdkasjdhaksjdhaksj"
         }
     ],
     "priority":"0"

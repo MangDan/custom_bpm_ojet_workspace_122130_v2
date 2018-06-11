@@ -5,7 +5,7 @@
 /*
  * Your application specific code will go here
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojrouter', 'ojs/ojknockout', 'ojs/ojinputtext', 'ojs/ojrouter'],
+define(['ojs/ojcore', 'knockout', 'config/obpmConfig', 'ojs/ojrouter', 'ojs/ojknockout', 'ojs/ojinputtext', 'ojs/ojrouter'],
   function (oj, ko) {
     function LoginControllerViewModel() {
       var self = this;

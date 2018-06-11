@@ -14,9 +14,193 @@
     </div>
 </oj-bind-if>
 <oj-bind-if test="[[progressStatus() === 'done']]">
-    <div id="taskDetailDone" class="oj-flex oj-sm-flex-items-initial" style="height:100%">
-        <div class="oj-flex-item">
-            <oj-bind-text value="[[$properties.taskId]]"></oj-bind-text>
+    <div id="taskDetailDone" class="oj-header-border">
+        <div class="oj-flex-bar">
+            <div class="oj-flex-bar-middle">
+                <h3>
+                    <oj-bind-text value="{{task().title}}"></oj-bind-text>
+                </h3>
+            </div>
+            <div class="oj-flex-bar-end oj-sm-align-items-center">
+                <oj-menu-button id="menuButton">
+                    Actions
+                    <!-- To handle menu item selection, use an action listener as shown, not a click listener. -->
+                    <oj-menu id="taskActionMenu" slot="menu" style="display:none" on-oj-action="[[taskAction]]">
+                        <!-- ko foreach: taskActions -->
+                        <oj-option data-bind="attr: {id: id, disabled: disabled, value: label}">
+                            <span>
+                                <oj-bind-text value="[[(label=='확인'?'처리':label)]]"></oj-bind-text>
+                            </span>
+                        </oj-option>
+                        <!-- <oj-option id="divider"></oj-option> -->
+                        <!-- /ko -->
+                    </oj-menu>
+                </oj-menu-button>
+            </div>
+        </div>
+    </div>
+    <!-- if task summary payload -->
+    <!-- oj-sm-flex-direction-column : flex-imte을 다음 라인으로.. -->
+    <div id="taskDetail" class="oj-flex oj-sm-flex-direction-column oj-flex-items-pad" style="height:100%;">
+        <div class="oj-flex-item oj-margin">
+            <oj-form-layout id="taskDetailForm" label-edge="{{taskFormLabelEdge}}" max-columns="{{taskFormColumns}}">
+                <oj-bind-for-each data="[[summaryFields]]" as="summaryField">
+                    <!-- oj-bind-for-each child로 무조건 template 필요. oj-bind-if의 child일 경우 오류 발생 -->
+                    <template>
+                        <oj-bind-if test="[[summaryField.data.category === 'Payload']]">
+                            <oj-bind-if test="[[summaryField.data.dataType === 'java.lang.String']]">
+                                <!-- readOnly json value type이 문자("") 형태일 경우 readonly=[[]] 가 적용 안되는 문제가 있음. data-bind 일경우 문제 사라짐. value attribute는 type에 엄격함. number expect한 상황에서 text 오면 오류... 자동 타입 변환이 안됨. data-bind 사용하는것이 좋음. -->
+                                <oj-bind-if test="[[summaryField.data.value.length > 50]]">
+                                    <oj-text-area id="[[summaryField.data.name]]" data-bind="attr:{value : summaryField.data.value,readonly : summaryField.data.readOnly}"
+                                        rows="6" label-hint="[[summaryField.data.name]]"></oj-text-area>
+                                </oj-bind-if>
+                                <oj-bind-if test="[[summaryField.data.value.length <= 50]]">
+                                    <oj-input-text id="[[summaryField.data.name]]" data-bind="attr:{value : summaryField.data.value,readonly : summaryField.data.readOnly}"
+                                        label-hint="[[summaryField.data.name]]"></oj-input-text>
+                                </oj-bind-if>
+                            </oj-bind-if>
+                            <oj-bind-if test="[[summaryField.data.dataType === 'java.lang.Integer']]">
+                                <oj-input-number id=[[summaryField.data.name]] max="9999999999" min="0" step="10" data-bind="attr:{value : summaryField.data.value,readonly : summaryField.data.readOnly}"
+                                    converter='{"type":"number"}' label-hint=[[summaryField.data.name]]></oj-input-number>
+                            </oj-bind-if>
+                        </oj-bind-if>
+                    </template>
+                </oj-bind-for-each>
+                <!--
+                <oj-text-area id="textareacontrol" value='text' rows="6" label-hint="textarea"></oj-text-area>
+                <oj-input-text id="inputcontrol2" value="text" label-hint="input 2"></oj-input-text>
+                <oj-input-text id="inputcontrol3" value="text" label-hint="input 3 longer label"></oj-input-text>
+                <oj-checkboxset id="checkboxSetId" label-hint="Colors">
+                    <oj-option id="blueopt" value="blue">Blue</oj-option>
+                    <oj-option id="greenopt" value="green">Green</oj-option>
+                    <oj-option id="redopt" value="red">Red</oj-option>
+                </oj-checkboxset>
+                -->
+            </oj-form-layout>
+        </div>
+        <div class="oj-flex-item oj-margin">
+            <oj-collapsible expanded="true">
+                <h3 id="h" slot="header">Comments</h3>
+                <div class="oj-flex oj-sm-only-flex-direction-column">
+                    <div class="oj-flex-item">
+                        <div id="commentEditor" contenteditable="true"></div>
+                    </div>
+                </div>
+
+
+                <div class="oj-flex-bar">
+                    <div class="oj-flex-bar-middle">
+                        <oj-paging-control id="tasksPaging" data="[[taskCommentDataSource]]" page-size="5" mode='page' pageOptionsChanged=""></oj-paging-control>
+                    </div>
+                    <div class="oj-flex-bar-end oj-sm-align-items-center">
+                        <oj-button id='commentBtn' on-oj-action='[[submitComment]]' disabled="[[commentBtnDisabled]]">Submit</oj-button>
+                    </div>
+                </div>
+                <oj-list-view id="taskCommentListview" aria-label="list using json data" data="[[taskCommentDataSource]]" drill-mode="none">
+                    <template slot="itemTemplate">
+                        <!-- template for items -->
+                        <div class="oj-flex flex-wrap">
+                            <div class="oj-flex-item oj-sm-12">
+                                <div class="oj-flex oj-flex-items-pad">
+                                    <oj-avatar role="img" size="xs" data-bind="attr:{src:'/css/images/demo_icon/'+$current.data.userId+'.png'}">
+                                    </oj-avatar>
+                                    <div class="oj-flex-item">
+                                        <div>
+                                            <span>
+                                                <oj-bind-text value="[[$current.data.updatedBy]]"></oj-bind-text>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="oj-text-xs oj-text-secondary-color">
+                                                <oj-bind-text value="[[$current.data.updatedDate]]"></oj-bind-text>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="oj-flex-item" style="margin-top:5px">
+                                <p>
+                                    <oj-bind-text value="[[$current.data.commentStr]]"></oj-bind-text>
+                                </p>
+                            </div>
+                        </div>
+                    </template>
+                </oj-list-view>
+                <!-- Module Change... Messages to ListView 
+                <div class="oj-flex oj-sm-only-flex-direction-column oj-md-only-flex-direction-column oj-lg-flex-items-1 oj-form-layout">
+                    <oj-messages id="oj-messages-id" messages="{{taskComments}}" class="oj-sm-margin-2x-bottom oj-messages-inline-remove-bottom-border:false"
+                        on-oj-close="[[closeMessageHandler]]" style="width:100%">
+                    </oj-messages>
+                </div>
+                -->
+            </oj-collapsible>
+        </div>
+        <div class="oj-flex-item oj-margin">
+            <oj-collapsible expanded="true">
+                <h3 id="h" slot="header">Attachments</h3>
+                <oj-toolbar aria-label="Toolbar">
+                    <oj-button slot='trigger' chroming='half'>
+                        <img slot="startIcon" src="css/images/alta_icon/func_pagemagnifyingglass_16_ena.png" width="16"
+                            height="16" /> Select files
+                    </oj-button>
+                    <oj-button slot='trigger' chroming='half'>
+                        <span slot='startIcon' class='oj-fwk-icon oj-fwk-icon-arrowbox-n'></span>
+                        Upload
+                    </oj-button>
+                    <oj-button slot='trigger' chroming='half' disabled="[[noAttachments]]" chroming="half" data-bind="click: clearUploadAttachments">
+                        <img slot="startIcon" src="css/images/alta_icon/func_trashcan_16_ena.png" width="16" height="16" /> Clear Loaded
+                    </oj-button>
+                </oj-toolbar>
+                <div id="fine-uploader-manual-trigger"></div>
+                <input type="file" name="taskAttachment" id="taskAttachment">
+            </oj-collapsible>
+        </div>
+        <div class="oj-flex-item oj-margin">
+            <oj-collapsible expanded="true">
+                <h3 id="h" slot="header">More Information</h3>
+                <div class="oj-flex oj-sm-only-flex-direction-column oj-md-only-flex-direction-column oj-lg-flex-items-1 oj-form-layout">
+                    <div class="oj-flex-item">
+                        <div class="oj-form  oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <oj-label for="task-number" style="font-weight:bold">Task Number</oj-label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <oj-input-text id="task-number" value={{task().number}} readonly></oj-input-text>
+                                </div>
+                            </div>
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <oj-label for="assigned-date" style="font-weight:bold">Assigned Date</oj-label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <oj-input-text id="assigned-date" value={{task().assignedDate}} readonly></oj-input-text>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="oj-flex-item">
+                        <div class="oj-form  oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <oj-label for="priority" style="font-weight: bold">Priority</oj-label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <oj-input-text id="priority" value={{task().priority}} readonly></oj-input-text>
+                                </div>
+                            </div>
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <oj-label or="due-date" style="font-weight: bold">Due Date</oj-label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <oj-input-text id="due-date" value={{task().dueDate}} readonly></oj-input-text>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </oj-collapsible>
         </div>
     </div>
 </oj-bind-if>

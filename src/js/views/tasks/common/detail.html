@@ -3,15 +3,34 @@
  The Universal Permissive License (UPL), Version 1.0
  -->
 <div id="taskDetail">
-    <oj-button id="gotoTaskList" on-click='[[gotoTaskList]]'>
-        <span slot='startIcon' class='oj-fwk-icon-caret-start oj-fwk-icon'></span>
-        Back
-    </oj-button>
-    <div class="oj-panel" data-bind="style: {height:large() ? contentHeight : '330px',overflow:'auto'}">
-        <task-detail-component task-id="{{taskId}}"></task-detail-component>
-        <oj-button class="oj-panel-resize-button" chroming="half" display="icons">
-            <span slot="startIcon" class="oj-panel-expand-icon"></span>
-            <span>expand</span>
-        </oj-button>
+    <div class="oj-flex-bar">
+        <div class="oj-flex-bar-middle">
+            <oj-button id="gotoTaskList" on-click='[[gotoTaskList]]'>
+                <span slot='startIcon' class='oj-fwk-icon-caret-start oj-fwk-icon'></span>
+                Back
+            </oj-button>
+        </div>
+        <div class="oj-flex-bar-end">
+            <oj-button id="taskDetailExpandBtn" class="oj-panel-resize-button" chroming="half" display="icons" on-oj-action='[[expandTaskDetail]]'>
+                <span slot="startIcon" :class="[[taskDetailExpandCollapseIcon]]"></span>
+                <span>expand</span>
+            </oj-button>
+        </div>
     </div>
+    <div class="oj-panel" data-bind="style: {height:large() ? contentHeight : '330px',overflow:'auto'}">
+        <div>
+            <task-detail-component task-id="{{taskId}}"></task-detail-component>
+        </div>
+    </div>
+    <oj-dialog style="display:none;width:90vw;height:90vh;" id="modalDialog1" title="Modal Dialog">
+        <div slot="body">
+            <oj-defer>
+                <task-detail-component task-id="{{taskId}}"></task-detail-component>
+            </oj-defer>
+        </div>
+        <div slot="footer">
+            <oj-button id="btnCancel" on-oj-action='[[collapseTaskDetail]]'> Cancel
+            </oj-button>
+        </div>
+    </oj-dialog>
 </div>

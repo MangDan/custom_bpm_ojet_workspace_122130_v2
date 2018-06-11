@@ -27,6 +27,7 @@ requirejs.config(
     'ojL10n': 'libs/oj/v5.0.0/ojL10n',
     'ojtranslations': 'libs/oj/v5.0.0/resources',
     'text': 'libs/require/text',
+    'json': 'libs/require/json',
     'signals': 'libs/js-signals/signals',
     'customElements': 'libs/webcomponents/custom-elements.min',
     'proj4': 'libs/proj4js/dist/proj4-src',

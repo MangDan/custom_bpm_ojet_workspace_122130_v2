@@ -45,7 +45,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'services/taskQueryService', 'ojs/oj
       // 이와 같은 스타일일 경우에는 paging이 자동으로 이뤄짐...
 
       self.listTaskQueryURL = ko.computed(function () {
-        return "resources/sample_tasks.json?orderBy=" + self.taskOrder() + ":desc";
+        return taskQueryService.listTaskQueryURL("?orderBy=" + self.taskOrder() + ":desc");
       });
 
       oj.Logger.log("tasks query parameter : " + params.query);

@@ -3,9 +3,16 @@
   "version": "1.0.0",
   "description": "An Oracle JavaScript Extension Toolkit(JET) web app",
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^10.0.1",
+    "@ckeditor/ckeditor5-utils": "^10.0.0",
     "@oracle/oraclejet": "~5.0.0",
+    "blueimp-file-upload-node": "^2.1.0",
     "bootstrap": "^4.1.1",
-    "bootstrapt": "^1.2.0"
+    "bootstrapt": "^1.2.0",
+    "fine-uploader": "^5.16.2",
+    "mime-type": "^3.0.5",
+    "mime-types": "^2.1.18",
+    "requirejs-plugins": "^1.0.2"
   },
   "devDependencies": {
     "grunt": "^1.0.1",

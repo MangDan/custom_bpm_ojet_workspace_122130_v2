@@ -5,7 +5,7 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery', , 'ojs/ojbutton', 'ojs/ojcomposite', 'jet-composites/task-detail-component/loader'],
+define(['ojs/ojcore', 'knockout', 'jquery', , 'ojs/ojbutton', 'ojs/ojcomposite', 'ojs/ojdialog', 'ojs/ojdefer', 'jet-composites/task-detail-component/loader'],
   function (oj, ko, $) {
     var taskDetailViewModel = function (params) {
       var self = this;
@@ -25,6 +25,25 @@ define(['ojs/ojcore', 'knockout', 'jquery', , 'ojs/ojbutton', 'ojs/ojcomposite',
       self.gotoTaskList = function (event) {
         params.currentTaskModule("list");
       };
+
+      self.taskDetailExpandCollapseIcon = ko.observableArray(['oj-panel-expand-icon']);
+      self.expandTaskDetail = function (event) {
+
+        var popup = document.querySelector('#modalDialog1');
+        popup.open();
+
+        self.taskDetailExpandCollapseIcon.replace('oj-panel-expand-icon', 'oj-panel-collapse-icon');
+      };
+
+      self.collapseTaskDetail = function (event) {
+
+        var popup = document.querySelector('#modalDialog1');
+        popup.close();
+
+        self.taskDetailExpandCollapseIcon.replace('oj-panel-collapse-icon', 'oj-panel-expand-icon');
+      };
+
+      
     }
 
     /*

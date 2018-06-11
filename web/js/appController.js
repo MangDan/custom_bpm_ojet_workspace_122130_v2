@@ -6,9 +6,10 @@
 /*
  * Your application specific code will go here
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-element', 'ojs/ojrouter', 'ojs/ojknockout', 'ojs/ojarraytabledatasource', 'config/obpmConfig', 'ojs/ojoffcanvas'],
+define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-element', 'ojs/ojrouter', 'ojs/ojknockout', 'ojs/ojarraytabledatasource', 'ojs/ojoffcanvas'],
   function (oj, ko, moduleUtils) {
 
+    console.log("appController.appName : " + obpmConfig.appName);
     oj.Router.defaults['urlAdapter'] = new oj.Router.urlParamAdapter();
 
     function ControllerViewModel() {

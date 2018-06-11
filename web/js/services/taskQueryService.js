@@ -68,6 +68,30 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
 
       oj.Logger.info(obpmConfig.serverurl, obpmConfig.resturi, obpmConfig.adminuser, obpmConfig.adminpw);
 
+      self.listTaskQueryURL = function (param) {
+        return "resources/sample_tasks.json";
+      };
+
+      self.taskDetailQueryURL = function (taskId) {
+        //return "resources/sample_task_detail.json/" + context.properties.taskId;
+        return "resources/sample_task_detail.json";
+      };
+
+      self.taskPayloadQueryURL = function (taskId) {
+        //return "resources/sample_task_detail.json/" + context.properties.taskId;
+        return "resources/sample_task_payload.json";
+      };
+
+      self.taskCommentsURL = function (taskId) {
+        //return "resources/sample_task_detail.json/" + context.properties.taskId;
+        return "resources/sample_task_comments.json";
+      };
+
+      self.taskAttachmentsURL = function (taskId) {
+        //return "resources/sample_task_detail.json/" + context.properties.taskId;
+        return "resources/sample_task_attachments.json";
+      };
+
       // Generate authorization headers to inject into rest calls
       self.getHeaders = function () {
         return {
@@ -105,6 +129,55 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
         });
 
         return new taskSummaryPayloadModel();
+      };
+
+      self.taskCommentModel = function (url) {
+        var taskCommentModel = oj.Model.extend({
+          urlRoot: url
+        });
+        return new taskCommentModel();
+      };
+
+      self.taskCommentCol = function (url, fetchSize) {
+        var taskCommentCollection = oj.Collection.extend({
+          url: url,
+          fetchSize: fetchSize
+          //customURL: rootViewModel.getHeaders,
+        });
+
+        return new taskCommentCollection();
+      };
+
+      self.taskAttachmentModel = function (url) {
+        var taskAttachmentModel = oj.Model.extend({
+          urlRoot: url
+        });
+        return new taskAttachmentModel();
+      };
+
+      self.taskAttachmentCol = function (url, fetchSize) {
+        var taskAttachmentCollection = oj.Collection.extend({
+          url: url,
+          fetchSize: fetchSize
+          //customURL: rootViewModel.getHeaders,
+        });
+
+        return new taskAttachmentCollection();
+      };
+
+      // Create handler
+      self.addComment = function (commentStr) {
+        var comment = { commentStr: commentStr };
+        self.taskCommentCol().create(comment, {
+          wait: true,
+          contentType: 'application/json',
+          success: function (model, response) {
+            console.log("add comment success..");
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.log('Error in Create: ' + textStatus);
+          }
+        });
       };
     }
 

@@ -1,114 +1,131 @@
 {
-    "updatedDate":"2015-05-27 00:41:41",
-    "priority":1,
-    "startDate":"2015-05-26 11:58:59",
-    "assignedDate":"2015-05-27 00:41:41",
-    "createdDate":"2015-05-27 00:41:41",
-    "ownerUser":"cdickens",
-    "creator":"jstein",
-    "actionList":[
+    "updatedDate": "2015-05-27 00:41:41",
+    "priority": 1,
+    "startDate": "2015-05-26 11:58:59",
+    "assignedDate": "2015-05-27 00:41:41",
+    "createdDate": "2015-05-27 00:41:41",
+    "ownerUser": "cdickens",
+    "creator": "jstein",
+    "availableActions": [
         {
-            "actionType":"System",
-            "rel":"self",
-            "title":"CREATE_TODO",
-            "href":"http://example.com/bpm/api/3.0/tasks/200021?action=CREATE_TODO"
+            "actionType": "Custom",
+            "title": "APPROVE",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=APPROVE"
         },
         {
-            "actionType":"System",
-            "rel":"self",
-            "title":"VIEW_PROCESS_HISTORY",
-            "href":"http://example.com/bpm/api/3.0/tasks/200021?action=VIEW_PROCESS_HISTORY"
+            "actionType": "Custom",
+            "title": "REJECT",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=REJECT"
         },
         {
-            "actionType":"System",
-            "rel":"self",
-            "title":"VIEW_TASK",
-            "href":"http://example.com/bpm/api/3.0/tasks/200021?action=VIEW_TASK"
-        },
-        {
-            "actionType":"System",
-            "rel":"self",
-            "title":"VIEW_TASK_HISTORY",
-            "href":"http://example.com/bpm/api/3.0/tasks/200021?action=VIEW_TASK_HISTORY"
-        },
-        {
-            "actionType":"System",
-            "rel":"self",
-            "title":"START_TASK",
-            "href":"http://example.com/bpm/api/3.0/tasks/200021?action=START_TASK"
-        },
-        {
-            "actionType":"System",
-            "rel":"self",
-            "title":"ESCALATE",
-            "href":"http://example.com/bpm/api/3.0/tasks/200021?action=ESCALATE"
-        },
-        {
-            "actionType":"System",
-            "rel":"self",
-            "title":"DELETE",
-            "href":"http://example.com/bpm/api/3.0/tasks/200021?action=DELETE"
-        },
-        {
-            "actionType":"System",
-            "rel":"self",
-            "title":"VIEW_SUB_TASKS",
-            "href":"http://example.com/bpm/api/3.0/tasks/200021?action=VIEW_SUB_TASKS"
-        },
-        {
-            "actionType":"System",
-            "rel":"self",
-            "title":"CUSTOM",
-            "href":"http://example.com/bpm/api/3.0/tasks/200021?action=CUSTOM"
-        },
-        {
-            "actionType":"System",
-            "rel":"self",
-            "title":"UPDATE",
-            "href":"http://example.com/bpm/api/3.0/tasks/200021?action=UPDATE"
-        },
-        {
-            "actionType":"System",
-            "rel":"self",
-            "title":"UPDATE_ATTACHMENT",
-            "href":"http://example.com/bpm/api/3.0/tasks/200021?action=UPDATE_ATTACHMENT"
-        },
-        {
-            "actionType":"System",
-            "rel":"self",
-            "title":"UPDATE_COMMENT",
-            "href":"http://example.com/bpm/api/3.0/tasks/200021?action=UPDATE_COMMENT"
+            "actionType": "System",
+            "title": "ESCALATE",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=ESCALATE"
         }
     ],
-    "number":200021,
-    "links":[
+    "actionList": [
         {
-            "rel":"back",
-            "href":"http://example.com/bpm/api/3.0/tasks/"
+            "actionType": "System",
+            "rel": "self",
+            "title": "CREATE_TODO",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=CREATE_TODO"
         },
         {
-            "rel":"self",
-            "href":"http://example.com/bpm/api/3.0/tasks/200021"
+            "actionType": "System",
+            "rel": "self",
+            "title": "VIEW_PROCESS_HISTORY",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=VIEW_PROCESS_HISTORY"
+        },
+        {
+            "actionType": "System",
+            "rel": "self",
+            "title": "VIEW_TASK",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=VIEW_TASK"
+        },
+        {
+            "actionType": "System",
+            "rel": "self",
+            "title": "VIEW_TASK_HISTORY",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=VIEW_TASK_HISTORY"
+        },
+        {
+            "actionType": "System",
+            "rel": "self",
+            "title": "START_TASK",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=START_TASK"
+        },
+        {
+            "actionType": "System",
+            "rel": "self",
+            "title": "ESCALATE",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=ESCALATE"
+        },
+        {
+            "actionType": "System",
+            "rel": "self",
+            "title": "DELETE",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=DELETE"
+        },
+        {
+            "actionType": "System",
+            "rel": "self",
+            "title": "VIEW_SUB_TASKS",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=VIEW_SUB_TASKS"
+        },
+        {
+            "actionType": "System",
+            "rel": "self",
+            "title": "CUSTOM",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=CUSTOM"
+        },
+        {
+            "actionType": "System",
+            "rel": "self",
+            "title": "UPDATE",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=UPDATE"
+        },
+        {
+            "actionType": "System",
+            "rel": "self",
+            "title": "UPDATE_ATTACHMENT",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=UPDATE_ATTACHMENT"
+        },
+        {
+            "actionType": "System",
+            "rel": "self",
+            "title": "UPDATE_COMMENT",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=UPDATE_COMMENT"
         }
     ],
-    "hasSubTasks":false,
-    "title":"myTodoTaskTestingV3",
-    "history":{
-        "rel":"self",
-        "href":"http://example.com/bpm/api/3.0/tasks/200021/history"
+    "number": 200021,
+    "links": [
+        {
+            "rel": "back",
+            "href": "http://example.com/bpm/api/3.0/tasks/"
+        },
+        {
+            "rel": "self",
+            "href": "http://example.com/bpm/api/3.0/tasks/200021"
+        }
+    ],
+    "hasSubTasks": false,
+    "title": "myTodoTaskTestingV3",
+    "history": {
+        "rel": "self",
+        "href": "http://example.com/bpm/api/3.0/tasks/200021/history"
     },
-    "type":"task",
-    "comments":{
-        "rel":"self",
-        "href":"http://example.com/bpm/api/3.0/tasks/200021/comments"
+    "type": "task",
+    "comments": {
+        "rel": "self",
+        "href": "http://example.com/bpm/api/3.0/tasks/200021/comments"
     },
-    "dueDate":"2015-07-26 11:58:59",
-    "payload":{
-        "rel":"self",
-        "href":"http://example.com/bpm/api/3.0/tasks/200021/summaryField"
+    "dueDate": "2015-07-26 11:58:59",
+    "payload": {
+        "rel": "self",
+        "href": "http://example.com/bpm/api/3.0/tasks/200021/summaryField"
     },
-    "attachments":{
-        "rel":"self",
-        "href":"http://example.com/bpm/api/3.0/tasks/200021/attachments"
+    "attachments": {
+        "rel": "self",
+        "href": "http://example.com/bpm/api/3.0/tasks/200021/attachments"
     }
 }

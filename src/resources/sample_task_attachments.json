@@ -1,0 +1,54 @@
+{
+    "hasMore": false,
+    "items": [
+        {
+            "title": "11.PNG",
+            "updatedBy": "Ted Brown",
+            "updatedDate": "2018-03-09 06:28:01",
+            "userId": "finuser2",
+            "attachmentScope": "TASK",
+            "rel": "self",
+            "href": "http://slc12edl.us.oracle.com:7012/bpm/api/4.0/tasks/200030/attachments/11.PNG",
+            "attachmentSize": 0,
+            "mimeType": "image/png",
+            "uri": {
+                "rel": "stream",
+                "href": "http://slc12edl.us.oracle.com:7012/bpm/api/4.0/tasks/200030/attachments/11.PNG/stream",
+                "length": 0
+            }
+        },
+        {
+            "title": "SOAAdv.png",
+            "updatedBy": "Ted Brown",
+            "updatedDate": "2018-03-09 06:22:31",
+            "userId": "finuser2",
+            "attachmentScope": "TASK",
+            "rel": "self",
+            "href": "http://slc12edl.us.oracle.com:7012/bpm/api/4.0/tasks/200030/attachments/SOAAdv.png",
+            "attachmentSize": 0,
+            "mimeType": "image/png",
+            "uri": {
+                "rel": "stream",
+                "href": "http://slc12edl.us.oracle.com:7012/bpm/api/4.0/tasks/200030/attachments/SOAAdv.png/stream",
+                "length": 0
+            }
+        }
+    ],
+    "links": [
+        {
+            "rel": "parent",
+            "href": "http://slc12edl.us.oracle.com:7012/bpm/api/4.0/tasks/200030",
+            "length": 0
+        },
+        {
+            "rel": "self",
+            "href": "http://slc12edl.us.oracle.com:7012/bpm/api/4.0/tasks/200030/attachments",
+            "length": 0
+        },
+        {
+            "rel": "canonical",
+            "href": "http://slc12edl.us.oracle.com:7012/bpm/api/4.0/tasks/200030/attachments",
+            "length": 0
+        }
+    ]
+}
