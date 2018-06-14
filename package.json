@@ -12,7 +12,8 @@
     "fine-uploader": "^5.16.2",
     "mime-type": "^3.0.5",
     "mime-types": "^2.1.18",
-    "requirejs-plugins": "^1.0.2"
+    "requirejs-plugins": "^1.0.2",
+    "svg-icon": "^0.8.2"
   },
   "devDependencies": {
     "grunt": "^1.0.1",

@@ -5,7 +5,7 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery', , 'ojs/ojbutton', 'ojs/ojcomposite', 'ojs/ojdialog', 'ojs/ojdefer', 'jet-composites/task-detail-component/loader'],
+define(['ojs/ojcore', 'knockout', 'jquery', , 'ojs/ojbutton', 'ojs/ojcomposite', 'ojs/ojdialog', 'ojs/ojdefer', 'jet-composites/task-detail-component/loader', 'jet-composites/ojet-fileupload-component/loader'],
   function (oj, ko, $) {
     var taskDetailViewModel = function (params) {
       var self = this;

@@ -1597,22 +1597,15 @@ html[dir="rtl"] .demo-oracle-icon {
   background-color: white;
 }
 
-#trigger-upload {
-  color: white;
-  background-color: #00ABC7;
-  font-size: 14px;
-  padding: 7px 20px;
-  background-image: none;
+svg-icon
+{
+  display:inline-block
 }
 
-#fine-uploader-manual-trigger .qq-upload-button {
-  margin-right: 15px;
-}
-
-#fine-uploader-manual-trigger .buttons {
-  width: 36%;
-}
-
-#fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container {
-  width: 60%;
+svg-icon svg
+{
+  fill:#999;
+  height:40px;
+  width:40px;
+  vertical-align:middle
 }

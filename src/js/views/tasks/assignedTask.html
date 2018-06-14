@@ -7,7 +7,7 @@
     <div class="oj-sm-12 oj-flex-item" style="padding-bottom:3px">
       <img class="img-center" src="css/images/alta_icon/qual_book_48_full.png" width="20" height="20" />
       <span role="separator" aria-orientation="vertical" class="oj-toolbar-separator"></span>
-      My Tasks
+      My Tasks 
     </div>
   </div>
   <div class="oj-flex">
@@ -108,6 +108,8 @@
       <div id="task-list-page" class="oj-panel">
         <oj-collapsible id="my-task-list" expanded='true' on-oj-before-collapse="[[taskCollapseHandler]]" on-oj-before-expand=[[taskExpandHandler]]>
           <h3 id="h1" slot="header" class="oj-header-border" style="font-family:helvetica">Tasks</h3>
+          
+
           <div data-bind="ojModule: {name: modulePath, 
           animation: oj.ModuleAnimations.switcher(switcherCallback),
           params: {currentTaskModule: currentTaskModule, taskId: taskId, contentHeight: contentHeight,query: 'status=assigned'}}">

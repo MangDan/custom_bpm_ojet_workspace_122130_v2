@@ -1,0 +1,32 @@
+{
+    "name": "ojet-fileupload-component",
+    "description": "",
+    "version": "1.0.0",
+    "displayName": "Ojet-fileupload Component",
+    "icon": {
+        "iconPath": "extension/dt/images/components/card.png",
+        "selectedIconPath": "extension/dt/images/components/card_selected.png",
+        "hoverIconPath": "extension/dt/images/components/card_hover.png"
+    },
+    "jetVersion": "^3.0.0",
+    "properties": {
+        "options": {
+            "description": "",
+            "type": "object",
+            "properties": {
+                "multiple": {
+                    "description": "",
+                    "type": "boolean"
+                },
+                "accept": {
+                    "description": "",
+                    "type": "string"
+                },
+                "uploadUrl": {
+                    "description": "",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

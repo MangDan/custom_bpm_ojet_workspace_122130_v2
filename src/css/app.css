@@ -1596,3 +1596,16 @@ html[dir="rtl"] .demo-oracle-icon {
   box-sizing: border-box;
   background-color: white;
 }
+
+svg-icon
+{
+  display:inline-block
+}
+
+svg-icon svg
+{
+  fill:#999;
+  height:40px;
+  width:40px;
+  vertical-align:middle
+}

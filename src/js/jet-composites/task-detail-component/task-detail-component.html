@@ -138,21 +138,25 @@
         <div class="oj-flex-item oj-margin">
             <oj-collapsible expanded="true">
                 <h3 id="h" slot="header">Attachments</h3>
-                <oj-toolbar aria-label="Toolbar">
-                    <oj-button slot='trigger' chroming='half'>
-                        <img slot="startIcon" src="css/images/alta_icon/func_pagemagnifyingglass_16_ena.png" width="16"
-                            height="16" /> Select files
-                    </oj-button>
-                    <oj-button slot='trigger' chroming='half'>
-                        <span slot='startIcon' class='oj-fwk-icon oj-fwk-icon-arrowbox-n'></span>
-                        Upload
-                    </oj-button>
-                    <oj-button slot='trigger' chroming='half' disabled="[[noAttachments]]" chroming="half" data-bind="click: clearUploadAttachments">
-                        <img slot="startIcon" src="css/images/alta_icon/func_trashcan_16_ena.png" width="16" height="16" /> Clear Loaded
-                    </oj-button>
-                </oj-toolbar>
-                <div id="fine-uploader-manual-trigger"></div>
-                <input type="file" name="taskAttachment" id="taskAttachment">
+                <ojet-fileupload-component id="fileupload" options='{"multiple":true,"accept":"*", "uploadUrl":"http://~~~"}'></ojet-fileupload-component>
+                <oj-list-view id="attachmentsListView" class="oj-listview-card-layout" aria-label="list with card layout for items in group"
+                    data="[[taskAttachmentDataSource]]" drill-mode="none">
+                    <template slot="itemTemplate">
+                        <li data-bind="attr: {id: $current.data.title}">
+                            <div>
+                                <div class="oj-panel" style="display:flex;justify-content:center;margin-bottom:10px;">
+                                    <div style="width:100%;max-width:70px;padding:0">
+                                        <div data-bind="style: { backgroundImage: 'url(\'css/images/alta_icon/' + getFileType($current.data.mimeType) + '.png\')', 
+                                                       backgroundRepeat: 'no-repeat', backgroundSize: '100%', height: '70px', width: '100%' }, attr: { 'aria-label': $current.data.mimeType }"></div>
+                                    </div>
+                                </div>
+                                <div style="display:flex;justify-content:center;">
+                                    <oj-bind-text value="[[$current.data.title]]"></oj-bind-text>
+                                </div>
+                            </div>
+                        </li>
+                    </template>
+                </oj-list-view>
             </oj-collapsible>
         </div>
         <div class="oj-flex-item oj-margin">

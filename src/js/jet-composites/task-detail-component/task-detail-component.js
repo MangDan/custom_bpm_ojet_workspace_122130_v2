@@ -1,4 +1,4 @@
-define(['knockout', 'services/taskQueryService', 'ojs/ojprogress', 'ojs/ojinputtext', 'ojs/ojinputnumber', 'ojs/ojcheckboxset', 'ojs/ojmenu', 'ojs/ojoption', 'ojs/ojlistview', 'ojs/ojfilepicker', 'ojs/ojprogresslist', 'ojs/ojformlayout', 'ojs/ojavatar', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojarraydataprovider'],
+define(['knockout', 'services/taskQueryService', 'ojs/ojprogress', 'ojs/ojinputtext', 'ojs/ojinputnumber', 'ojs/ojcheckboxset', 'ojs/ojmenu', 'ojs/ojoption', 'ojs/ojlistview', 'ojs/ojprogresslist', 'ojs/ojformlayout', 'ojs/ojavatar', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojarraydataprovider'],
     function (ko, taskQueryService) {
         function taskDetailViewModel(context) {
             let self = this;
@@ -10,9 +10,10 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojprogress', 'ojs/ojinputt
             };
 
             $(document).ready(function() {
+                //loadFileUploader();
             });
 
-            require(['ckeditor'], ClassicEditor => {
+            require(['ckeditor5-classic/ckeditor'], ClassicEditor => {
                 ClassicEditor.create(
                     document.querySelector('#commentEditor')
                 ).then(editor => {
@@ -24,10 +25,6 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojprogress', 'ojs/ojinputt
                     console.error(error);
                 });
             });
-
-            
-    
-            
 
             //console.log(commentEditor.isReadOnly);
             //self.themeName = oj.ThemeUtils.getThemeName();
@@ -82,47 +79,6 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojprogress', 'ojs/ojinputt
                 return taskQueryService.taskAttachmentsURL("?taskId=" + context.properties.taskId);
             });
 
-            var loadFileUploader = function () {
-                $('#taskAttachment').fileupload({
-                    url : '/bo/sample/file/uploadProcess.do',
-                    dataType: 'json',
-                    //replaceFileInput: false,
-                    add: function(e, data){
-                        var uploadFile = data.files[0];
-                        var isValid = true;
-                        if (!(/png|jpe?g|gif/i).test(uploadFile.name)) {
-                            alert('png, jpg, gif 만 가능합니다');
-                            isValid = false;
-                        } else if (uploadFile.size > 5000000) { // 5mb
-                            alert('파일 용량은 5메가를 초과할 수 없습니다.');
-                            isValid = false;
-                        }
-                        if (isValid) {
-                            data.submit();
-                        }
-                    }, progressall: function(e,data) {
-                        var progress = parseInt(data.loaded / data.total * 100, 10);
-                        $('#progress .bar').css(
-                            'width',
-                            progress + '%'
-                        );
-                    }, done: function (e, data) {
-                        var code = data.result.code;
-                        var msg = data.result.msg;
-                        if(code == '1') {
-                            alert(msg);
-                        } else {
-                            alert(code + ' : ' + msg);
-                        }
-                    }, fail: function(e, data){
-                        // data.errorThrown
-                        // data.textStatus;
-                        // data.jqXHR;
-                        alert('서버와 통신 중 문제가 발생했습니다');
-                        foo = data;
-                    }
-                });
-            };
             // Promise에 대해서 정리...
             var getTaskDetail = function () {
                 return new Promise(function (resolve, reject) {

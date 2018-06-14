@@ -5,8 +5,8 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'services/taskQueryService', 'ojs/ojlistview', 'ojs/ojmodel', 'ojs/ojmoduleanimations', 'ojs/ojcollapsible', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojselectcombobox'],
-  function (oj, ko, $, taskQueryService) {
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojlistview', 'ojs/ojmodel', 'ojs/ojmoduleanimations', 'ojs/ojcollapsible', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojselectcombobox'],
+  function (oj, ko, $) {
     function AssignedTaskViewModel() {
       var self = this;
 

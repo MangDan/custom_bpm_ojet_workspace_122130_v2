@@ -222,22 +222,26 @@
         "cdnPath": "ckeditor5/utils"
       }
     },
-    "blueimp-file-upload-node": {
+    "svg-icon": {
       "cdn": "3rdparty",
-      "cwd": "node_modules/blueimp-file-upload-node",
+      "cwd": "node_modules/svg-icon/dist",
       "debug": {
         "src": [
-          "**"
+          "svg-icon-element.css",
+          "svg-icon-element.js",
+          "sprite/symbol/*.svg"
         ],
-        "path": "libs/blueimp-file-upload-node",
-        "cdnPath": "blueimp-file-upload-node"
+        "path": "libs/svg-icon",
+        "cdnPath": "svg-icon"
       },
       "release": {
         "src": [
-          "**"
+          "svg-icon-element.css",
+          "svg-icon-element.js",
+          "sprite/symbol/*.svg"
         ],
-        "path": "libs/blueimp-file-upload-node",
-        "cdnPath": "blueimp-file-upload-node"
+        "path": "libs/svg-icon",
+        "cdnPath": "svg-icon"
       }
     },
     "signals": {

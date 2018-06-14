@@ -1,0 +1,58 @@
+<div class="ojet-fileupload-component">
+    <oj-file-picker id="ojet-fileupload" class='oj-filepicker-custom' selectOn='click' accept="[[accept]]" selection-mode="[[selectionMode]]"
+        on-oj-select='[[fileSelectListener]]'>
+        <oj-button slot='trigger' chroming='half'>
+            <img slot="startIcon" src="css/images/alta_icon/func_pagemagnifyingglass_16_ena.png" width="16" height="16" /> Select files
+        </oj-button>
+    </oj-file-picker>
+    <oj-button chroming='half'>
+        <span slot='startIcon' class='oj-fwk-icon oj-fwk-icon-arrowbox-n'></span>
+        Upload
+    </oj-button>
+    <oj-button chroming='half' disabled="[[noAttachments]]" chroming="half" data-bind="click: clearSelectedFiles">
+        <img slot="startIcon" src="css/images/alta_icon/func_trashcan_16_ena.png" width="16" height="16" /> Clear Loaded
+    </oj-button>
+    <div style="padding-top:10px"></div>
+    <label for="progressList">File Upload Status</label>
+    <div style="padding-top:5px"></div>
+    <oj-list-view id="selectedFiles" aria-label="list with card layout for items in group" data="[[selectedFileDataProvider]]"
+        drill-mode="none">
+        <template slot="itemTemplate">
+            <li data-bind="attr: {id: $current.data.name, 'aria-label': $current.data.name}">
+                <div class="oj-flex-bar">
+                    <div class="oj-flex-bar-start oj-flex-bar">
+                        <div class="oj-flex-bar-start">
+                            <oj-bind-if test="[[$current.data.type.startsWith('image')]]">
+                                <span class="oj-flex-item" data-bind="style: { backgroundImage: 'url(' + $current.data.dataURI + ')', backgroundRepeat: 'no-repeat', backgroundSize: '40px 40px', minHeight: '40px', minWidth: '40px', maxWidth: '40px' }">
+                                </span>
+                            </oj-bind-if>
+                            <oj-bind-if test="[[!$current.data.type.startsWith('image')]]">
+                                    <svg-icon data-bind="attr:{url: $current.data.svgUrl, type: $current.data.iconType}"></svg-icon>
+                            </oj-bind-if>
+                        </div>
+                        <div class="oj-flex-bar-middle oj-sm-flex-direction-column" style="margin-left: 10px">
+                            <div class="oj-flex-item">
+                                <strong data-bind="text: $current.data.name"></strong>
+                            </div>
+                            <div class="oj-flex-item">
+                                <span class="oj-text-xs oj-text-secondary-color" data-bind="text: 'Last modified on ' + $current.data.lastModifiedDate"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="oj-flex-bar-end oj-sm-align-items-center">
+                        <div class="oj-flex-item oj-flex oj-progresslist-info">
+                            <span data-bind="text: $current.data.size"></span>
+                        </div>
+                        <div class="oj-component-icon oj-progressstatus-done-icon" role="img" title="done"></div>
+
+                        <div class="oj-progressstatus-cell">
+                            <oj-progress type="circle" value="1"></oj-progress>
+                        </div>
+
+                        <a href="#" title="close" class="oj-clickable-icon-nocontext oj-fwk-icon oj-fwk-icon-cross"></a>
+                    </div>
+                </div>
+            </li>
+        </template>
+    </oj-list-view>
+</div>
