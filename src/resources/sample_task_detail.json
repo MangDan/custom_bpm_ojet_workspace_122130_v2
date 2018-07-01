@@ -1,131 +1,367 @@
 {
-    "updatedDate": "2015-05-27 00:41:41",
-    "priority": 1,
-    "startDate": "2015-05-26 11:58:59",
-    "assignedDate": "2015-05-27 00:41:41",
-    "createdDate": "2015-05-27 00:41:41",
-    "ownerUser": "cdickens",
-    "creator": "jstein",
-    "availableActions": [
-        {
-            "actionType": "Custom",
-            "title": "APPROVE",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=APPROVE"
-        },
-        {
-            "actionType": "Custom",
-            "title": "REJECT",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=REJECT"
-        },
-        {
-            "actionType": "System",
-            "title": "ESCALATE",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=ESCALATE"
+    "hreflang": null,
+    "length": null,
+    "rel": null,
+    "title": "BpmProject",
+    "type": null,
+    "assignedDate": "2018-07-01 13:20:48",
+    "creator": null,
+    "creatorName": null,
+    "dueDate": null,
+    "fromUserDisplayName": null,
+    "fromUserName": null,
+    "groupByName": null,
+    "groupByValue": null,
+    "longSummary": null,
+    "shortSummary": null,
+    "number": 200014,
+    "priority": 3,
+    "createdDate": "2018-07-01 13:20:48",
+    "state": "ASSIGNED",
+    "ownerGroup": null,
+    "ownerRole": "BpmProject.Process Owner",
+    "ownerUser": null,
+    "applicationName": null,
+    "processName": "Process",
+    "attachments": {
+        "attachments": {
+            "levels": 0,
+            "title": "No attachments exist for task with id 200014",
+            "links": null,
+            "attachment": null
         }
-    ],
+    },
+    "flexFields": null,
+    "history": {
+        "history": {
+            "levels": 0,
+            "title": null,
+            "taskHistories": [
+                {
+                    "actionName": "지정됨",
+                    "displayName": "weblogic",
+                    "userId": "weblogic",
+                    "pattern": "Participant",
+                    "reason": "",
+                    "updatedDate": "2018-07-01 13:20:48"
+                }
+            ],
+            "links": null
+        }
+    },
+    "comments": {
+        "comments": {
+            "levels": 0,
+            "title": "Comments not found for task with taskId 200014",
+            "comments": null,
+            "links": [
+                {
+                    "hreflang": null,
+                    "length": null,
+                    "rel": "back",
+                    "title": null,
+                    "type": null,
+                    "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014"
+                },
+                {
+                    "hreflang": null,
+                    "length": null,
+                    "rel": "self",
+                    "title": null,
+                    "type": null,
+                    "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014/comments"
+                }
+            ]
+        }
+    },
+    "payload": {
+        "payload": {
+            "summaryFields": [
+                {
+                    "dataType": "java.lang.String",
+                    "name": "dataObject1",
+                    "readOnly": "false",
+                    "value": "111",
+                    "displayName": "",
+                    "category": "Payload"
+                }
+            ],
+            "comment": null,
+            "priority": 0
+        }
+    },
+    "detailsURL": null,
+    "hasSubTasks": false,
+    "outcome": null,
+    "startDate": null,
+    "identificationKey": null,
+    "updatedDate": "2018-07-01 13:20:48",
+    "href": null,
     "actionList": [
         {
-            "actionType": "System",
+            "hreflang": null,
+            "length": null,
             "rel": "self",
             "title": "CREATE_TODO",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=CREATE_TODO"
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=CREATE_TODO"
         },
         {
-            "actionType": "System",
+            "hreflang": null,
+            "length": null,
             "rel": "self",
             "title": "VIEW_PROCESS_HISTORY",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=VIEW_PROCESS_HISTORY"
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=VIEW_PROCESS_HISTORY"
         },
         {
+            "hreflang": null,
+            "length": null,
+            "rel": "self",
+            "title": "SKIP_CURRENT_ASSIGNMENT",
+            "type": null,
             "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=SKIP_CURRENT_ASSIGNMENT"
+        },
+        {
+            "hreflang": null,
+            "length": null,
             "rel": "self",
             "title": "VIEW_TASK",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=VIEW_TASK"
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=VIEW_TASK"
         },
         {
-            "actionType": "System",
+            "hreflang": null,
+            "length": null,
             "rel": "self",
             "title": "VIEW_TASK_HISTORY",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=VIEW_TASK_HISTORY"
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=VIEW_TASK_HISTORY"
         },
         {
-            "actionType": "System",
+            "hreflang": null,
+            "length": null,
             "rel": "self",
             "title": "START_TASK",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=START_TASK"
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=START_TASK"
         },
         {
+            "hreflang": null,
+            "length": null,
+            "rel": "self",
+            "title": "SUSPEND_TIMERS",
+            "type": null,
             "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=SUSPEND_TIMERS"
+        },
+        {
+            "hreflang": null,
+            "length": null,
             "rel": "self",
             "title": "ESCALATE",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=ESCALATE"
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=ESCALATE"
         },
         {
-            "actionType": "System",
+            "hreflang": null,
+            "length": null,
             "rel": "self",
-            "title": "DELETE",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=DELETE"
+            "title": "WITHDRAW",
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=WITHDRAW"
         },
         {
+            "hreflang": null,
+            "length": null,
+            "rel": "self",
+            "title": "OVERRIDE_ROUTING_SLIP",
+            "type": null,
             "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=OVERRIDE_ROUTING_SLIP"
+        },
+        {
+            "hreflang": null,
+            "length": null,
             "rel": "self",
             "title": "VIEW_SUB_TASKS",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=VIEW_SUB_TASKS"
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=VIEW_SUB_TASKS"
         },
         {
-            "actionType": "System",
+            "hreflang": null,
+            "length": null,
             "rel": "self",
             "title": "CUSTOM",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=CUSTOM"
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=CUSTOM"
         },
         {
-            "actionType": "System",
+            "hreflang": null,
+            "length": null,
             "rel": "self",
             "title": "UPDATE",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=UPDATE"
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=UPDATE"
         },
         {
-            "actionType": "System",
+            "hreflang": null,
+            "length": null,
             "rel": "self",
             "title": "UPDATE_ATTACHMENT",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=UPDATE_ATTACHMENT"
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=UPDATE_ATTACHMENT"
         },
         {
-            "actionType": "System",
+            "hreflang": null,
+            "length": null,
             "rel": "self",
             "title": "UPDATE_COMMENT",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021?action=UPDATE_COMMENT"
-        }
-    ],
-    "number": 200021,
-    "links": [
-        {
-            "rel": "back",
-            "href": "http://example.com/bpm/api/3.0/tasks/"
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=UPDATE_COMMENT"
         },
         {
+            "hreflang": null,
+            "length": null,
             "rel": "self",
-            "href": "http://example.com/bpm/api/3.0/tasks/200021"
+            "title": "INFO_REQUEST",
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=INFO_REQUEST"
+        },
+        {
+            "hreflang": null,
+            "length": null,
+            "rel": "self",
+            "title": "REASSIGN",
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014/REASSIGN"
+        },
+        {
+            "hreflang": null,
+            "length": null,
+            "rel": "self",
+            "title": "SUSPEND",
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=SUSPEND"
+        },
+        {
+            "hreflang": null,
+            "length": null,
+            "rel": "self",
+            "title": "DECOMPOSE_TASK",
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=DECOMPOSE_TASK"
+        },
+        {
+            "hreflang": null,
+            "length": null,
+            "rel": "self",
+            "title": "DELEGATE",
+            "type": null,
+            "actionType": "System",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014/DELEGATE"
+        },
+        {
+            "hreflang": null,
+            "length": null,
+            "rel": "self",
+            "title": "승인",
+            "type": null,
+            "actionType": "Custom",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=APPROVE"
+        },
+        {
+            "hreflang": null,
+            "length": null,
+            "rel": "self",
+            "title": "거부",
+            "type": null,
+            "actionType": "Custom",
+            "mappedTo": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014?action=REJECT"
         }
     ],
-    "hasSubTasks": false,
-    "title": "myTodoTaskTestingV3",
-    "history": {
-        "rel": "self",
-        "href": "http://example.com/bpm/api/3.0/tasks/200021/history"
+    "permissions": null,
+    "assignees": {
+        "totalResult": false,
+        "limit": null,
+        "count": null,
+        "offset": null,
+        "hasMore": false,
+        "identities": null,
+        "user": null,
+        "items": [
+            {
+                "levels": 0,
+                "title": null,
+                "links": null,
+                "id": "weblogic",
+                "type": "user",
+                "email": null,
+                "idLink": null,
+                "firstName": null,
+                "lastName": null,
+                "middleName": null,
+                "mobile": null,
+                "workPhone": null
+            }
+        ],
+        "links": null
     },
-    "type": "task",
-    "comments": {
-        "rel": "self",
-        "href": "http://example.com/bpm/api/3.0/tasks/200021/comments"
-    },
-    "dueDate": "2015-07-26 11:58:59",
-    "payload": {
-        "rel": "self",
-        "href": "http://example.com/bpm/api/3.0/tasks/200021/summaryField"
-    },
-    "attachments": {
-        "rel": "self",
-        "href": "http://example.com/bpm/api/3.0/tasks/200021/attachments"
-    }
+    "links": [
+        {
+            "hreflang": null,
+            "length": null,
+            "rel": "back",
+            "title": null,
+            "type": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/"
+        },
+        {
+            "hreflang": null,
+            "length": null,
+            "rel": "self",
+            "title": null,
+            "type": null,
+            "href": "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks/200014"
+        }
+    ]
 }

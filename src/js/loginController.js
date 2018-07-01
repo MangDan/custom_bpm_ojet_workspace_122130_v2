@@ -17,7 +17,7 @@ define(['ojs/ojcore', 'knockout', 'config/obpmConfig', 'ojs/ojrouter', 'ojs/ojkn
 
         oj.Logger.info(obpmConfig.serverurl, obpmConfig.resturi, obpmConfig.adminuser, obpmConfig.adminpw);
 
-        if(self.username() === obpmConfig.adminuser) { // Admin
+        if(self.username() === "tmpadmin") { // temp Admin
           sessionStorage.setItem('bpmContext', obpmConfig.adminuser);
           self.redirectPage("index.html");
         } else {

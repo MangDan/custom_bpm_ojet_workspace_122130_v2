@@ -69,43 +69,50 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
       oj.Logger.info(obpmConfig.serverurl, obpmConfig.resturi, obpmConfig.adminuser, obpmConfig.adminpw);
 
       self.listTaskQueryURL = function (param) {
-        return "resources/sample_tasks.json";
+        //return "resources/sample_tasks.json";
+        return obpmConfig.resturi + "tasks";
       };
 
       self.taskDetailQueryURL = function (taskId) {
         //return "resources/sample_task_detail.json/" + context.properties.taskId;
-        return "resources/sample_task_detail.json";
+        //return "resources/sample_task_detail.json";
+        return obpmConfig.resturi + "tasks/"+taskId;
       };
 
       self.taskPayloadQueryURL = function (taskId) {
         //return "resources/sample_task_detail.json/" + context.properties.taskId;
-        return "resources/sample_task_payload.json";
+        return obpmConfig.resturi + "tasks/"+taskId+"/summaryField";
       };
 
       self.taskCommentsURL = function (taskId) {
         //return "resources/sample_task_detail.json/" + context.properties.taskId;
-        return "resources/sample_task_comments.json";
+        //return "resources/sample_task_comments.json";
+        return obpmConfig.resturi + "tasks/"+taskId+"/comments";
       };
 
       self.taskAttachmentsURL = function (taskId) {
         //return "resources/sample_task_detail.json/" + context.properties.taskId;
-        return "resources/sample_task_attachments.json";
+        return obpmConfig.resturi + "tasks/"+taskId+"/attachments";
       };
 
+      self.taskCommentCol = ko.observable();
+
       // Generate authorization headers to inject into rest calls
-      self.getHeaders = function () {
-        return {
-          'headers': {
-            'Authorization': 'Bearer token',
-            'userToken': 'self.token()',
-            'DD-Process-Type': 'spatial'
-          }
-        };
+      function getHeaders (operation, collection, options) {
+        var headers = {};
+
+        //request['url'] = "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks";
+        
+        headers['headers'] = {};
+        headers["headers"]["Authorization"] = "Basic "+sessionStorage.getItem("userToken");
+        
+        return headers;
       };
 
       self.taskModel = function (url) {
         var taskModel = oj.Model.extend({
           urlRoot: url,
+          customURL: getHeaders,
           idAttribute: 'number'
         });
         return new taskModel();
@@ -114,9 +121,9 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
       self.listTaskCol = function (url, fetchSize) {
         var taskCollection = oj.Collection.extend({
           url: url,
+          customURL: getHeaders,
           model: self.taskModel(),
           fetchSize: fetchSize
-          //customURL: rootViewModel.getHeaders,
         });
 
         return new taskCollection();
@@ -124,7 +131,8 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
 
       self.taskSummaryPayloadModel = function (url) {
         var taskSummaryPayloadModel = oj.Model.extend({
-          urlRoot: url
+          urlRoot: url,
+          customURL: getHeaders
           //customURL: rootViewModel.getHeaders,
         });
 
@@ -133,15 +141,16 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
 
       self.taskCommentModel = function (url) {
         var taskCommentModel = oj.Model.extend({
-          urlRoot: url
+          urlRoot: url,
+          customURL: getHeaders
         });
         return new taskCommentModel();
       };
 
-      self.taskCommentCol = function (url, fetchSize) {
+      self.taskCommentCol = function (url) {
         var taskCommentCollection = oj.Collection.extend({
           url: url,
-          fetchSize: fetchSize
+          customURL: getHeaders
           //customURL: rootViewModel.getHeaders,
         });
 
@@ -150,7 +159,8 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
 
       self.taskAttachmentModel = function (url) {
         var taskAttachmentModel = oj.Model.extend({
-          urlRoot: url
+          urlRoot: url,
+          customURL: getHeaders
         });
         return new taskAttachmentModel();
       };
@@ -158,6 +168,7 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
       self.taskAttachmentCol = function (url, fetchSize) {
         var taskAttachmentCollection = oj.Collection.extend({
           url: url,
+          customURL: getHeaders,
           fetchSize: fetchSize
           //customURL: rootViewModel.getHeaders,
         });
@@ -165,18 +176,72 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
         return new taskAttachmentCollection();
       };
 
-      // Create handler
-      self.addComment = function (commentStr) {
-        var comment = { commentStr: commentStr };
-        self.taskCommentCol().create(comment, {
-          wait: true,
-          contentType: 'application/json',
-          success: function (model, response) {
-            console.log("add comment success..");
+      // wrapper function for HTTP POST
+      self.uploadAttachment = function (url, content, contentType) {
+
+        oj.Logger.info(url);
+        oj.Logger.info(content);
+        oj.Logger.info(contentType);
+
+        var bytes = new Uint8Array(content.length);
+        for (var i = 0; i < content.length; i++) {
+          bytes[i] = content.charCodeAt(i);
+        }
+
+        return $.ajax({
+          type: 'POST',
+          url: url,
+          cache: false,
+          processData: false,
+          data: bytes,
+          contentType: contentType,
+          beforeSend: function (xhr) {
+            //xhr.setRequestHeader('Authorization', pcsUtil.getAuthInfo());
+            //if (pcsUtil.isTestMode()) {
+            //  xhr.setRequestHeader('pcs_mode', 'dev');
+            //}
           },
-          error: function (jqXHR, textStatus, errorThrown) {
-            console.log('Error in Create: ' + textStatus);
-          }
+          xhrFields: {
+            withCredentials: true
+          },
+          xhr: function () {
+            var jqXHR = null;
+            if (window.ActiveXObject) {
+              jqXHR = new window.ActiveXObject("Microsoft.XMLHTTP");
+            }
+            else {
+              jqXHR = new window.XMLHttpRequest();
+            }
+
+            // 여기서 부터 ...... progress event를 done()과 같이 callback 할 수 있는지...
+            // 실제로 업로드 해봐야 할 것 같음...
+            if (jqXHR instanceof window.XMLHttpRequest) {
+              console.log(jqXHR);
+              jqXHR.addEventListener('progress', this.progress, false);
+            }
+
+            if (jqXHR.upload) {
+              console.log(jqXHR);
+              jqXHR.upload.addEventListener('progress', this.progress, false);
+            }
+
+            // jqXHR.upload.addEventListener("progress", function (evt) {
+            //   if (evt.lengthComputable) {
+            //     var percentComplete = Math.round((evt.loaded * 100) / evt.total);
+            //     //Do something with upload progress
+            //     console.log('Uploaded percent', percentComplete);
+            //   }
+            // }, false);
+            // //Download progress
+            // jqXHR.addEventListener("progress", function (evt) {
+            //   if (evt.lengthComputable) {
+            //     var percentComplete = Math.round((evt.loaded * 100) / evt.total);
+            //     //Do something with download progress
+            //     console.log('Downloaded percent', percentComplete);
+            //   }
+            // }, false);
+            return jqXHR;
+          },
         });
       };
     }

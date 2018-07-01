@@ -86,8 +86,6 @@
                         <div id="commentEditor" contenteditable="true"></div>
                     </div>
                 </div>
-
-
                 <div class="oj-flex-bar">
                     <div class="oj-flex-bar-middle">
                         <oj-paging-control id="tasksPaging" data="[[taskCommentDataSource]]" page-size="5" mode='page' pageOptionsChanged=""></oj-paging-control>
@@ -102,7 +100,7 @@
                         <div class="oj-flex flex-wrap">
                             <div class="oj-flex-item oj-sm-12">
                                 <div class="oj-flex oj-flex-items-pad">
-                                    <oj-avatar role="img" size="xs" data-bind="attr:{src:'/css/images/demo_icon/'+$current.data.userId+'.png'}">
+                                    <oj-avatar id="comment-avatar" role="img" size="xs" data-bind="attr:{src:'/css/images/demo_icon/'+$current.data.userId+'.png'}">
                                     </oj-avatar>
                                     <div class="oj-flex-item">
                                         <div>
@@ -112,16 +110,14 @@
                                         </div>
                                         <div>
                                             <span class="oj-text-xs oj-text-secondary-color">
-                                                <oj-bind-text value="[[$current.data.updatedDate]]"></oj-bind-text>
+                                                <oj-bind-text value="[[$current.data.updateddDate]]"></oj-bind-text>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="oj-flex-item" style="margin-top:5px">
-                                <p>
-                                    <oj-bind-text value="[[$current.data.commentStr]]"></oj-bind-text>
-                                </p>
+                                    <div data-bind="html: $current.data.commentStr"></div>
                             </div>
                         </div>
                     </template>

@@ -1,31 +1,34 @@
-define(['knockout', 'services/taskQueryService', 'ojs/ojprogress', 'ojs/ojinputtext', 'ojs/ojinputnumber', 'ojs/ojcheckboxset', 'ojs/ojmenu', 'ojs/ojoption', 'ojs/ojlistview', 'ojs/ojprogresslist', 'ojs/ojformlayout', 'ojs/ojavatar', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojarraydataprovider'],
-    function (ko, taskQueryService) {
+define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', 'ojs/ojprogress', 'ojs/ojinputtext', 'ojs/ojinputnumber', 'ojs/ojcheckboxset', 'ojs/ojmenu', 'ojs/ojoption', 'ojs/ojlistview', 'ojs/ojformlayout', 'ojs/ojavatar', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojarraydataprovider'],
+    function (ko, taskQueryService, ckeditor) {
         function taskDetailViewModel(context) {
             let self = this;
 
             var commentEditor;
-            self.activated = function (context) {
-                // Implement if needed
-                //loadFileUploader();
-            };
-
-            $(document).ready(function() {
-                //loadFileUploader();
-            });
-
-            require(['ckeditor5-classic/ckeditor'], ClassicEditor => {
-                ClassicEditor.create(
+            var createCKEditor = function () {
+                ckeditor.create(
                     document.querySelector('#commentEditor')
                 ).then(editor => {
                     commentEditor = editor;
-                    oj.Logger.log(commentEditor.element);
+                    //oj.Logger.log(commentEditor.element);
                     oj.Logger.log(commentEditor.config);
                     oj.Logger.log(commentEditor.ui);
                 }).catch(error => {
                     console.error(error);
                 });
-            });
-
+            };
+            // require(['ckeditor5-classic/ckeditor'], ClassicEditor => {
+            //     console.log(document.querySelector('#commentEditor'));
+            //     ClassicEditor.create(
+            //         document.querySelector('#commentEditor')
+            //     ).then(editor => {
+            //         commentEditor = editor;
+            //         //oj.Logger.log(commentEditor.element);
+            //         oj.Logger.log(commentEditor.config);
+            //         oj.Logger.log(commentEditor.ui);
+            //     }).catch(error => {
+            //         console.error(error);
+            //     });
+            // });
             //console.log(commentEditor.isReadOnly);
             //self.themeName = oj.ThemeUtils.getThemeName();
             //self.themeTargetPlatform = oj.ThemeUtils.getThemeTargetPlatform();
@@ -64,25 +67,25 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojprogress', 'ojs/ojinputt
 
             self.taskDetailQueryURL = ko.computed(function () {
                 //return "resources/sample_task_detail.json/" + context.properties.taskId;
-                return taskQueryService.taskDetailQueryURL("?taskId=" + context.properties.taskId);
+                return taskQueryService.taskDetailQueryURL(context.properties.taskId);
             });
 
             self.taskPayloadQueryURL = ko.computed(function () {
-                return taskQueryService.taskPayloadQueryURL("?taskId=" + context.properties.taskId);
+                return taskQueryService.taskPayloadQueryURL(context.properties.taskId);
             });
 
             self.taskCommentsURL = ko.computed(function () {
-                return taskQueryService.taskCommentsURL("?taskId=" + context.properties.taskId);
+                return taskQueryService.taskCommentsURL(context.properties.taskId);
             });
 
             self.taskAttachmentsURL = ko.computed(function () {
-                return taskQueryService.taskAttachmentsURL("?taskId=" + context.properties.taskId);
+                return taskQueryService.taskAttachmentsURL(context.properties.taskId);
             });
 
             // Promise에 대해서 정리...
             var getTaskDetail = function () {
                 return new Promise(function (resolve, reject) {
-                    var taskModel = taskQueryService.taskModel(obpmConfig.serverurl + self.taskDetailQueryURL());
+                    var taskModel = taskQueryService.taskModel(obpmConfig.serverurl + self.taskDetailQueryURL() + "?expanded=all");
 
                     taskModel.fetch({
                         success: function (model, task) {
@@ -138,7 +141,7 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojprogress', 'ojs/ojinputt
             var getTaskComments = function () {
                 return new Promise(function (resolve, reject) {
                     if (obpmConfig.appTarget === "onpremise") {
-                        self.taskCommentCol(taskQueryService.taskCommentCol(obpmConfig.serverurl + self.taskCommentsURL(), 5));
+                        self.taskCommentCol(taskQueryService.taskCommentCol(obpmConfig.serverurl + self.taskCommentsURL()));
 
                         self.taskCommentCol().fetch({
                             success: function (collection, comment) {
@@ -185,41 +188,49 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojprogress', 'ojs/ojinputt
             };
 
             //
-            Promise.all([getTaskDetail(), getTaskSummaryPayload(), getTaskComments(), getTaskAttachments()]).then(function (taskData) {
+            Promise.all([getTaskDetail(), getTaskSummaryPayload()]).then(function (taskData) {
                 var actionId, actionLabel, actionType;
 
                 self.progressStatus("done");
                 oj.Logger.log(taskData[0]);
                 oj.Logger.log(taskData[1]);
-                oj.Logger.log(taskData[2]);
-                oj.Logger.info(taskData[3]);
                 // if data not exist ??????
                 self.task(taskData[0]);
 
                 self.taskActions().length = 0;
                 //taskActions
-                if (taskData[0].availableActions.length > 0) {
-                    for (var i = 0; i < taskData[0].availableActions.length; i++) {
-                        actionId = taskData[0].availableActions[i].actionType;
-                        actionValue = taskData[0].availableActions[i].href.substring(taskData[0].availableActions[i].href.indexOf("=") + 1);
-                        actionLabel = taskData[0].availableActions[i].title;
+                if (taskData[0].actionList.length > 0) {
+                    for (var i = 0; i < taskData[0].actionList.length; i++) {
+                        if (taskData[0].actionList[i].actionType === "Custom") {
+                            actionId = taskData[0].actionList[i].actionType;
+                            actionValue = taskData[0].actionList[i].href.substring(taskData[0].actionList[i].href.indexOf("=") + 1);
+                            actionLabel = taskData[0].actionList[i].title;
 
-                        self.taskActions.push({ type: actionType, id: actionId, label: actionLabel, disabled: false });
+                            self.taskActions.push({ type: actionType, id: actionId, label: actionLabel, disabled: false });
+                        } else {
+                            oj.Logger.log("System Action :" + taskData[0].actionList[i].title);
+                        }
+
                     }
                 }
 
-                // if data not exist ??????
+                // if data not exist : 500 error.
                 self.summaryFields(taskData[1].summaryFields);
 
                 var defaultMessageSeverity = ["confirmation", "error", "info", "warning"];
                 // sevirity : confirmation, error, info, warning, none
-                if (taskData[2].items.length > 0) {
-                    self.taskCommentDataSource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.taskCommentCol())));
+                if (taskData[0].comments.comments.comments !== null) {
+                    self.taskCommentDataSource(new oj.PagingTableDataSource(new oj.ArrayTableDataSource(taskData[0].comments.comments.comments)));
                 }
 
-                if (taskData[3].items.length > 0) {
-                    self.taskAttachmentDataSource(new oj.CollectionTableDataSource(self.taskAttachmentCol()));
+                if (taskData[0].attachments.attachments.attachment !== null) {
+                    self.taskAttachmentDataSource(new oj.ArrayTableDataSource(taskData[0].attachments.attachments.attachment));
                 }
+
+                // commentEditor null 발생.
+                // Promise 내에서 모든 AJAX 로드가 완료되어야 오류가 발생하지 않아서 모든 AJAX 콜 완료된 후 CKEditor 호출하도록 변경함.
+                createCKEditor();
+
             }).catch(function (err) {
                 oj.Logger.info(err);
                 self.progressStatus("error");
@@ -239,7 +250,26 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojprogress', 'ojs/ojinputt
                 var commentStr = commentEditor.getData();
 
                 // Never tested.
-                taskQueryService.addComment(obpmConfig.serverurl + self.taskCommentsURL(), commentStr);
+                //taskQueryService.addComment(obpmConfig.serverurl + self.taskCommentsURL(), commentStr);
+
+                var comment = { commentStr: commentStr };
+
+                self.taskCommentCol(taskQueryService.taskCommentCol(obpmConfig.serverurl + self.taskCommentsURL()));
+
+                self.taskCommentCol().create(comment, {
+                    // taskCommentCol에서 customURL을 통해 Authrization을 하도록 되어 있어서 Authrization 문제 없을것으로 판단되었으나, 오류가 발생. 아래와 같이 Headers 추가로 문제 픽스함. (best practice?)
+                    headers: { "Authorization": "Basic " + sessionStorage.getItem("userToken") },
+                    wait: true,
+                    contentType: 'application/json',
+                    success: function (model, response) {
+                        self.taskCommentDataSource(new oj.PagingTableDataSource(new oj.ArrayTableDataSource(response.comments)));
+
+                        oj.Logger.log("add comment success..");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        oj.Logger.log('Error in Create: ' + textStatus);
+                    }
+                });
             };
 
             self.getFileType = function (mimeType) {

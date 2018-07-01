@@ -1,15 +1,15 @@
 <div class="ojet-fileupload-component">
-    <oj-file-picker id="ojet-fileupload" class='oj-filepicker-custom' selectOn='click' accept="[[accept]]" selection-mode="[[selectionMode]]"
+    <oj-file-picker id="ojet-fileupload" name="ojet-fileupload" class='oj-filepicker-custom' selectOn='click' accept="[[accept]]" selection-mode="[[selectionMode]]"
         on-oj-select='[[fileSelectListener]]'>
         <oj-button slot='trigger' chroming='half'>
             <img slot="startIcon" src="css/images/alta_icon/func_pagemagnifyingglass_16_ena.png" width="16" height="16" /> Select files
         </oj-button>
     </oj-file-picker>
-    <oj-button chroming='half'>
+    <oj-button chroming='half' disabled="[[noAttachments]]" on-oj-action='[[uploadSelectedFiles]]'>
         <span slot='startIcon' class='oj-fwk-icon oj-fwk-icon-arrowbox-n'></span>
         Upload
     </oj-button>
-    <oj-button chroming='half' disabled="[[noAttachments]]" chroming="half" data-bind="click: clearSelectedFiles">
+    <oj-button chroming='half' disabled="[[noAttachments]]" on-oj-action='[[clearSelectedFiles]]'>
         <img slot="startIcon" src="css/images/alta_icon/func_trashcan_16_ena.png" width="16" height="16" /> Clear Loaded
     </oj-button>
     <div style="padding-top:10px"></div>
@@ -23,7 +23,7 @@
                     <div class="oj-flex-bar-start oj-flex-bar">
                         <div class="oj-flex-bar-start">
                             <oj-bind-if test="[[$current.data.type.startsWith('image')]]">
-                                <span class="oj-flex-item" data-bind="style: { backgroundImage: 'url(' + $current.data.dataURI + ')', backgroundRepeat: 'no-repeat', backgroundSize: '40px 40px', minHeight: '40px', minWidth: '40px', maxWidth: '40px' }">
+                                <span class="oj-flex-item" data-bind="style: { backgroundImage: 'url(' + $current.data.thumbDataURI + ')', backgroundRepeat: 'no-repeat', backgroundSize: '40px 40px', minHeight: '40px', minWidth: '40px', maxWidth: '40px' }">
                                 </span>
                             </oj-bind-if>
                             <oj-bind-if test="[[!$current.data.type.startsWith('image')]]">
@@ -46,7 +46,7 @@
                         <div class="oj-component-icon oj-progressstatus-done-icon" role="img" title="done"></div>
 
                         <div class="oj-progressstatus-cell">
-                            <oj-progress type="circle" value="1"></oj-progress>
+                            <oj-progress id="upload-progress" type="circle" value="{{uploadProgress}}"></oj-progress>
                         </div>
 
                         <a href="#" title="close" class="oj-clickable-icon-nocontext oj-fwk-icon oj-fwk-icon-cross"></a>

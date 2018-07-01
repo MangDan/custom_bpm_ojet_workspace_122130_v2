@@ -2,11 +2,11 @@
     "appName" : "Custom BPM Workspace",
     "appVersion" : "12.2.1.3.0",
     "appTarget" : "onpremise",
-    "serverurl" : "http://localhost:8000/",
-    "resturi" : "bpm/services/rest/",
+    "serverurl" : "http://daniel-kim-svr.iptime.org:7003/",
+    "resturi" : "bpm/api/3.0/",
     "adminuser" : "weblogic",
     "adminpw" : "welcome1",
     "admindisplayname" : "Administrator",
-    "ordsserverurl" : "http://soabpm-vm:7005/",
+    "ordsserverurl" : "http://localhost:8000/",
     "ordsresturi" : "ords/toss_bpm_ordsaq/"
 }
