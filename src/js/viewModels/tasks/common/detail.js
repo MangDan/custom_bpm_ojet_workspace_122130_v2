@@ -29,7 +29,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', , 'ojs/ojbutton', 'ojs/ojcomposite',
       self.taskDetailExpandCollapseIcon = ko.observableArray(['oj-panel-expand-icon']);
       self.expandTaskDetail = function (event) {
 
-        var popup = document.querySelector('#modalDialog1');
+        var popup = document.querySelector('#taskDetailModalDialog');
         popup.open();
 
         self.taskDetailExpandCollapseIcon.replace('oj-panel-expand-icon', 'oj-panel-collapse-icon');
@@ -37,13 +37,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', , 'ojs/ojbutton', 'ojs/ojcomposite',
 
       self.collapseTaskDetail = function (event) {
 
-        var popup = document.querySelector('#modalDialog1');
+        var popup = document.querySelector('#taskDetailModalDialog');
         popup.close();
 
         self.taskDetailExpandCollapseIcon.replace('oj-panel-collapse-icon', 'oj-panel-expand-icon');
       };
 
-      
+      self.taskActionListener = function(event) {
+        console.log("taskActionLister...");
+        params.currentTaskModule("list");
+      };
     }
 
     /*

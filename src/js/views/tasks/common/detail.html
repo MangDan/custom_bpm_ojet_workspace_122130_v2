@@ -19,10 +19,10 @@
     </div>
     <div class="oj-panel" data-bind="style: {height:large() ? contentHeight : '330px',overflow:'auto'}">
         <div>
-            <task-detail-component task-id="{{taskId}}"></task-detail-component>
+            <task-detail-component task-id="{{taskId}}" on-task-action=[[taskActionListener]]></task-detail-component>
         </div>
     </div>
-    <oj-dialog style="display:none;width:90vw;height:90vh;" id="modalDialog1" title="Modal Dialog">
+    <oj-dialog style="display:none;width:90vw;height:90vh;" id="taskDetailModalDialog" title="Task Detail">
         <div slot="body">
             <oj-defer>
                 <task-detail-component task-id="{{taskId}}"></task-detail-component>

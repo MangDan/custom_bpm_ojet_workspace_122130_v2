@@ -5,11 +5,12 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery'],
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojlistview', 'ojs/ojmodel', 'ojs/ojmoduleanimations', 'ojs/ojcollapsible', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojselectcombobox'],
   function (oj, ko, $) {
-
     function CompletedTaskViewModel() {
       var self = this;
+
+      self.router;
       // Below are a subset of the ViewModel methods invoked by the ojModule binding
       // Please reference the ojModule jsDoc for additional available methods.
 
@@ -68,8 +69,55 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
 
       oj.Logger.info(obpmConfig.serverurl, obpmConfig.resturi, obpmConfig.adminuser, obpmConfig.adminpw);
 
-      $(document).ready(function () {
-        
+      let default_module = "list";
+
+      self.currentTaskModule = ko.observable(default_module);
+      self.taskId = ko.observable();
+      self.contentHeight = ko.observable("calc(100vh - 620px)");
+
+      self.modulePath = ko.pureComputed(
+        function () {
+          return ('tasks/common/' + self.currentTaskModule());
+        }
+      );
+
+      self.switcherCallback = function (context) {
+        if(self.currentTaskModule() === 'list')
+          return 'navParent';
+        else
+          return 'navChild';
+      };
+
+      taskExpandHandler = function(event) {
+        oj.Logger.info("expand:" + event.target.id);
+        if(event.target.id === "my-task-performance") {
+          self.contentHeight("calc(100vh - 620px)");
+        }
+      };
+
+      taskCollapseHandler = function(event) {
+        oj.Logger.info("collapse:" + event.target.id);
+        if(event.target.id === "my-task-performance") {
+          self.contentHeight("calc(100vh - 425px)");
+        }
+      };
+      // not used
+      self.moduleConfig = ko.pureComputed(function () {
+        var mc = self.router.observableModuleConfig();
+        var name = mc.name();
+        /*
+         * Create a module config from the router's observableModuleConfig
+         * so that our module can access the observable state parameters.
+         */
+        var config = {};
+        var key;
+        for (key in mc) {
+          if (mc.hasOwnProperty(key)) {
+            config[key] = mc[key];
+          }
+        }
+        config.name = 'tasks/common/' + name;
+        return config;
       });
     }
 

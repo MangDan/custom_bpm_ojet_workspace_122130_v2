@@ -9,5 +9,10 @@
             "description": "",
             "type": "number"
         }
+    },
+    "events": {
+        "taskAction": {
+            "description": "Triggered when a task action"
+        }
     }
 }

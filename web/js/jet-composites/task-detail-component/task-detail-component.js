@@ -1,4 +1,4 @@
-define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', 'ojs/ojprogress', 'ojs/ojinputtext', 'ojs/ojinputnumber', 'ojs/ojcheckboxset', 'ojs/ojmenu', 'ojs/ojoption', 'ojs/ojlistview', 'ojs/ojformlayout', 'ojs/ojavatar', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojarraydataprovider'],
+define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', 'ojs/ojdialog', 'ojs/ojprogress', 'ojs/ojinputtext', 'ojs/ojinputnumber', 'ojs/ojcheckboxset', 'ojs/ojmenu', 'ojs/ojoption', 'ojs/ojlistview', 'ojs/ojformlayout', 'ojs/ojavatar', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojarraydataprovider'],
     function (ko, taskQueryService, ckeditor) {
         function taskDetailViewModel(context) {
             let self = this;
@@ -54,6 +54,7 @@ define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', '
             self.message = ko.observable();
             self.task = ko.observableArray([]);
             self.taskActions = ko.observableArray([]);
+            self.taskActingMessage = ko.observable();
             self.summaryFields = ko.observableArray([]);
 
             //self.selectedMessages = ko.observableArray(["error", "warning"]);
@@ -72,6 +73,10 @@ define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', '
 
             self.taskPayloadQueryURL = ko.computed(function () {
                 return taskQueryService.taskPayloadQueryURL(context.properties.taskId);
+            });
+
+            self.updateTaskPayloadURL = ko.computed(function () {
+                return taskQueryService.updateTaskPayloadURL(context.properties.taskId);
             });
 
             self.taskCommentsURL = ko.computed(function () {
@@ -240,8 +245,106 @@ define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', '
             self.selectedAction = ko.observable("");
 
             self.taskAction = function (event) {
-                self.selectedAction(event.target.value);
-                oj.Logger.info("task Action : " + event.target.value);
+                self.selectedAction(event.target.value.toUpperCase());
+                oj.Logger.info("task Action : " + event.target.value.toUpperCase());
+
+                self.taskActingMessage("Performing Task Action...");
+                document.querySelector("#taskProgressDialog").open();
+
+                Promise.all([updateTaskPayload(), updateTaskByAction(event.target.value.toUpperCase())]).then(function (response) {
+                    oj.Logger.log(response[0]);
+                    oj.Logger.log(response[1]);
+
+                    // Task Action 완료후... detail.js의 taskAction Event 호출
+                    var element = context.element;
+                    element.dispatchEvent(new CustomEvent('taskAction'));
+                });
+
+            };
+
+            updateTaskPayload = function () {
+                return new Promise(function (resolve, reject) {
+
+                    var taskSummayPayload = {
+                        "summaryFields": [
+                            {
+                                "dataType": "java.lang.String",
+                                "name": "dataObject1",
+                                "readOnly": false,
+                                "value": "test",
+                                "displayName": "",
+                                "category": "Payload"
+                            }
+                        ],
+                        "comment": "TaskSummaryField Upload",
+                        "priority": "1"
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: obpmConfig.serverurl + self.updateTaskPayloadURL(),
+                        contentType: "application/json",
+                        headers: {
+                            Authorization: "Basic " + sessionStorage.getItem("userToken")
+                        },
+                        data: JSON.stringify(taskSummayPayload),
+                        success: function (response) {
+                            oj.Logger.log(response);
+                            if (response) {
+                                self.taskActingMessage(response);
+                                resolve(response);
+                            }
+                        },
+                        failure: function (jqXHR, textStatus, errorThrown) {
+                            reject(new Error("Update task Payload failed with:" + textStatus));
+                        }
+                    });
+                });
+            };
+
+            updateTaskByAction = function (action) {
+                return new Promise(function (resolve, reject) {
+                    var taskModel = taskQueryService.taskModel(obpmConfig.serverurl + self.taskDetailQueryURL());
+
+                    // var updateTaskComment = {
+                    //     "action": {
+                    //         "id": action
+                    //     },
+                    //     "identities": [
+                    //         {
+                    //             "id": "weblogic",
+                    //             "type": "user"
+                    //         }
+                    //     ]
+                    // };
+
+                    var updateTaskAction = {
+                        "action": {
+                            "id": action
+                        }
+                    };
+
+                    $.ajax({
+                        type: "PUT",
+                        url: obpmConfig.serverurl + self.taskDetailQueryURL(),
+                        contentType: "application/json",
+                        headers: {
+                            Authorization: "Basic " + sessionStorage.getItem("userToken")
+                        },
+                        data: JSON.stringify(updateTaskAction),
+                        success: function (response) {
+                            oj.Logger.log(response);
+                            if (response) {
+                                self.taskActingMessage("Task action successfully performed.");
+                                resolve(response);
+                            }
+                        },
+                        failure: function (jqXHR, textStatus, errorThrown) {
+                            reject(new Error("Update task Payload failed with:" + textStatus));
+                        }
+                    });
+                });
+
             };
 
             self.commentBtnDisabled = ko.observable(false);

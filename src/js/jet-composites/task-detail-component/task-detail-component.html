@@ -117,7 +117,7 @@
                                 </div>
                             </div>
                             <div class="oj-flex-item" style="margin-top:5px">
-                                    <div data-bind="html: $current.data.commentStr"></div>
+                                <div data-bind="html: $current.data.commentStr"></div>
                             </div>
                         </div>
                     </template>
@@ -202,7 +202,16 @@
                 </div>
             </oj-collapsible>
         </div>
+        <oj-dialog style="display:none" id="taskProgressDialog" title="Task Progress Status" cancel-behavior="none">
+            <div slot="body">
+                <oj-progress class="oj-progress-bar-embedded" id="progressbar" value="-1">
+                </oj-progress>
+                <oj-bind-text value={{taskActingMessage}}></oj-bind-text>
+            </div>
+        </oj-dialog>
     </div>
+
+
 </oj-bind-if>
 <oj-bind-if test="[[progressStatus() === 'error']]">
     <div id="taskDetailError" class="oj-flex oj-sm-flex-items-initial" style="height:100%">

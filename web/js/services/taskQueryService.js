@@ -68,9 +68,9 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
 
       oj.Logger.info(obpmConfig.serverurl, obpmConfig.resturi, obpmConfig.adminuser, obpmConfig.adminpw);
 
-      self.listTaskQueryURL = function (param) {
+      self.listTaskQueryURL = function (params) {
         //return "resources/sample_tasks.json";
-        return obpmConfig.resturi + "tasks";
+        return obpmConfig.resturi + "tasks" + params;
       };
 
       self.taskDetailQueryURL = function (taskId) {
@@ -82,6 +82,11 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
       self.taskPayloadQueryURL = function (taskId) {
         //return "resources/sample_task_detail.json/" + context.properties.taskId;
         return obpmConfig.resturi + "tasks/"+taskId+"/summaryField";
+      };
+
+      self.updateTaskPayloadURL = function (taskId) {
+        //return "resources/sample_task_detail.json/" + context.properties.taskId;
+        return obpmConfig.resturi + "tasks/"+taskId+"/payload";
       };
 
       self.taskCommentsURL = function (taskId) {
@@ -102,7 +107,6 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
         var headers = {};
 
         //request['url'] = "http://daniel-kim-svr.iptime.org:7003/bpm/api/3.0/tasks";
-        
         headers['headers'] = {};
         headers["headers"]["Authorization"] = "Basic "+sessionStorage.getItem("userToken");
         
@@ -132,7 +136,12 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
       self.taskSummaryPayloadModel = function (url) {
         var taskSummaryPayloadModel = oj.Model.extend({
           urlRoot: url,
-          customURL: getHeaders
+          customURL: getHeaders,
+          parse: function(response) {
+            console.log("taskSummaryPayloadModel");
+            console.log(response);
+            return response;
+          }
           //customURL: rootViewModel.getHeaders,
         });
 
@@ -244,6 +253,8 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
           },
         });
       };
+
+
     }
 
     /*
