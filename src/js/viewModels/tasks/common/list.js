@@ -51,7 +51,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'services/taskQueryService', 'ojs/oj
       oj.Logger.info("tasks query parameter : " + params.query);
 
       self.listTask = function () {
-        self.listTaskCol(taskQueryService.listTaskCol(obpmConfig.serverurl + self.listTaskQueryURL(), self.pageSize()));
+        self.listTaskCol(taskQueryService.listTaskCol(self.listTaskQueryURL(), self.pageSize()));
 
         self.listTaskDataSource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.listTaskCol())));
       };

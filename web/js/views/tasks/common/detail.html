@@ -25,7 +25,7 @@
     <oj-dialog style="display:none;width:90vw;height:90vh;" id="taskDetailModalDialog" title="Task Detail">
         <div slot="body">
             <oj-defer>
-                <task-detail-component task-id="{{taskId}}"></task-detail-component>
+                <task-detail-component task-id="{{taskId}}" on-task-action=[[taskActionListener]]></task-detail-component>
             </oj-defer>
         </div>
         <div slot="footer">

@@ -70,34 +70,34 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
 
       self.listTaskQueryURL = function (params) {
         //return "resources/sample_tasks.json";
-        return obpmConfig.resturi + "tasks" + params;
+        return obpmConfig.serverurl + obpmConfig.resturi + "tasks" + params;
       };
 
       self.taskDetailQueryURL = function (taskId) {
         //return "resources/sample_task_detail.json/" + context.properties.taskId;
         //return "resources/sample_task_detail.json";
-        return obpmConfig.resturi + "tasks/"+taskId;
+        return obpmConfig.serverurl + obpmConfig.resturi + "tasks/"+taskId;
       };
 
       self.taskPayloadQueryURL = function (taskId) {
         //return "resources/sample_task_detail.json/" + context.properties.taskId;
-        return obpmConfig.resturi + "tasks/"+taskId+"/summaryField";
+        return obpmConfig.serverurl + obpmConfig.resturi + "tasks/"+taskId+"/summaryField";
       };
 
       self.updateTaskPayloadURL = function (taskId) {
         //return "resources/sample_task_detail.json/" + context.properties.taskId;
-        return obpmConfig.resturi + "tasks/"+taskId+"/payload";
+        return obpmConfig.serverurl + obpmConfig.resturi + "tasks/"+taskId+"/payload";
       };
 
       self.taskCommentsURL = function (taskId) {
         //return "resources/sample_task_detail.json/" + context.properties.taskId;
         //return "resources/sample_task_comments.json";
-        return obpmConfig.resturi + "tasks/"+taskId+"/comments";
+        return obpmConfig.serverurl + obpmConfig.resturi + "tasks/"+taskId+"/comments";
       };
 
       self.taskAttachmentsURL = function (taskId) {
         //return "resources/sample_task_detail.json/" + context.properties.taskId;
-        return obpmConfig.resturi + "tasks/"+taskId+"/attachments";
+        return obpmConfig.serverurl + obpmConfig.resturi + "tasks/"+taskId+"/attachments";
       };
 
       self.taskCommentCol = ko.observable();
@@ -186,11 +186,11 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
       };
 
       // wrapper function for HTTP POST
-      self.uploadAttachment = function (url, content, contentType) {
+      self.uploadAttachment = function (url, id, content, contentType, progressCallback) {
 
-        oj.Logger.info(url);
-        oj.Logger.info(content);
-        oj.Logger.info(contentType);
+        //oj.Logger.info(url);
+        //oj.Logger.info(content);
+        //oj.Logger.info(contentType);
 
         var bytes = new Uint8Array(content.length);
         for (var i = 0; i < content.length; i++) {
@@ -200,6 +200,7 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
         return $.ajax({
           type: 'POST',
           url: url,
+          headers: { "Authorization": "Basic " + sessionStorage.getItem("userToken") },
           cache: false,
           processData: false,
           data: bytes,
@@ -224,31 +225,17 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
 
             // 여기서 부터 ...... progress event를 done()과 같이 callback 할 수 있는지...
             // 실제로 업로드 해봐야 할 것 같음...
-            if (jqXHR instanceof window.XMLHttpRequest) {
-              console.log(jqXHR);
-              jqXHR.addEventListener('progress', this.progress, false);
-            }
+            //if (jqXHR instanceof window.XMLHttpRequest) {
+            //  jqXHR.addEventListener('progress', this.progress, false);
+            //}
 
-            if (jqXHR.upload) {
-              console.log(jqXHR);
-              jqXHR.upload.addEventListener('progress', this.progress, false);
-            }
-
-            // jqXHR.upload.addEventListener("progress", function (evt) {
-            //   if (evt.lengthComputable) {
-            //     var percentComplete = Math.round((evt.loaded * 100) / evt.total);
-            //     //Do something with upload progress
-            //     console.log('Uploaded percent', percentComplete);
-            //   }
-            // }, false);
-            // //Download progress
-            // jqXHR.addEventListener("progress", function (evt) {
-            //   if (evt.lengthComputable) {
-            //     var percentComplete = Math.round((evt.loaded * 100) / evt.total);
-            //     //Do something with download progress
-            //     console.log('Downloaded percent', percentComplete);
-            //   }
-            // }, false);
+            jqXHR.upload.addEventListener("progress", function (evt) {
+              progressCallback(id, evt);
+            }, false);
+            //Download progress
+            jqXHR.addEventListener("progress", function (evt) {
+              progressCallback(id, evt);
+            }, false);
             return jqXHR;
           },
         });

@@ -134,7 +134,7 @@
         <div class="oj-flex-item oj-margin">
             <oj-collapsible expanded="true">
                 <h3 id="h" slot="header">Attachments</h3>
-                <ojet-fileupload-component id="fileupload" options='{"multiple":true,"accept":"*", "uploadUrl":"http://~~~"}'></ojet-fileupload-component>
+                <ojet-fileupload-component id="fileupload" number={{task().number}} options='{"multiple":true,"accept":"*"}'></ojet-fileupload-component>
                 <oj-list-view id="attachmentsListView" class="oj-listview-card-layout" aria-label="list with card layout for items in group"
                     data="[[taskAttachmentDataSource]]" drill-mode="none">
                     <template slot="itemTemplate">
@@ -202,7 +202,7 @@
                 </div>
             </oj-collapsible>
         </div>
-        <oj-dialog style="display:none" id="taskProgressDialog" title="Task Progress Status" cancel-behavior="none">
+        <oj-dialog style="display:none" id="taskProgressDialog" title="Task Progress Status" cancel-behavior="none" on-oj-close='[[taskProgressDialogCloseListener]]'>
             <div slot="body">
                 <oj-progress class="oj-progress-bar-embedded" id="progressbar" value="-1">
                 </oj-progress>

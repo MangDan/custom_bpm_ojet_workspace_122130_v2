@@ -25,7 +25,7 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojfilepicker', 'ojs/ojbutt
             self.options = {
                 selectionMode: "multiple",
                 accept: "image/*",
-                uploadUrl: ""
+                uploadUrl: "/tasks/{id}/attachments"
             };
 
             self.selectionMode = ko.observable(self.options.selectionMode);
@@ -46,8 +46,9 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojfilepicker', 'ojs/ojbutt
                 return results;
             };
 
-            self.fileSelectListener = function (event) {
+            self.progressStatus = ko.observable(0);
 
+            self.fileSelectListener = function (event) {
                 var files = event.detail.files;
                 if (files) {
                     for (var i = 0, file; file = files[i]; i++) {
@@ -58,7 +59,6 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojfilepicker', 'ojs/ojbutt
                         var fileReader = new FileReader();
 
                         fileReader.onload = (function (theFile) {
-
                             return function (e) {
 
                                 //drawImage 메서드에 넣기 위해 이미지 객체화
@@ -85,14 +85,15 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojfilepicker', 'ojs/ojbutt
                                         var thumbDataURI = canvas.toDataURL("image/jpeg");
 
                                         //lastModifiedDate,name,size,type
-                                        self.fileQueue.push(new FileModel(theFile, e.target.result, thumbDataURI, null));
+                                        //add the new files at the beginning of the list
+                                        self.fileQueue.unshift({"fileModel":new FileModel(theFile, e.target.result, thumbDataURI, null),"fileProgressStatus":ko.observable(self.progressStatus())});
                                     }
                                 } else {
                                     oj.Logger.log("non-image :" + theFile.name);
 
                                     // 파일 타입에 따라 변경되도록 수정...
                                     var svgIcon = { "svgUrl": "/js/libs/svg-icon/sprite/symbol/windows.svg", "iconType": "si-windows-cabinet-files" }
-                                    self.fileQueue.push(new FileModel(theFile, e.target.result, null, svgIcon));
+                                    self.fileQueue.unshift({"fileModel":new FileModel(theFile, e.target.result, null, svgIcon),"fileProgressStatus":ko.observable(self.progressStatus())});
                                 }
                             };
                         })(file);
@@ -102,13 +103,13 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojfilepicker', 'ojs/ojbutt
                 }
             };
             //create file upload data provider
-            self.selectedFileDataProvider = new oj.ArrayDataProvider(self.fileQueue, { idAttribute: 'item' });
+            self.selectedFileDataProvider = new oj.ArrayDataProvider(self.fileQueue, { idAttribute: 'name' });
 
             var FileModel = function (fileobj, content, thumbDataURI, svgIcon) {
                 var self = this;
-
-                self.content = abToStr(content);
+                
                 self.name = fileobj.name;
+                self.content = content;
                 self.lastModifiedDate = fileobj.lastModifiedDate;
                 self.size = returnFileSize(fileobj.size);
                 self.byteSize = fileobj.size;
@@ -126,19 +127,6 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojfilepicker', 'ojs/ojbutt
                 } else if (number > 1048576) {
                     return (number / 1048576).toFixed(1) + 'MB';
                 }
-            };
-
-
-            function abToStr(buffer) {
-                var view = new Uint8Array(buffer);
-
-                var CHUNK_SZ = 0x8000;
-                var c = [];
-                for (var i = 0; i < view.length; i += CHUNK_SZ) {
-                    c.push(String.fromCharCode.apply(null, view.subarray(i, i + CHUNK_SZ)));
-                }
-                return c.join('');
-
             };
 
             // 수정 필요...
@@ -171,45 +159,38 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojfilepicker', 'ojs/ojbutt
             };
 
             self.noAttachments = ko.observable(false);
-            self.uploadProgress = ko.observable(50);
             
             self.uploadSelectedFiles = function (event) {
-                console.log(self.fileQueue().length);
                 if (self.fileQueue().length > 0) {
                     var boundary = 'Boundary_' + '123456789_123456789';
                     var header = '--' + boundary + '\r\n';
                     var footer = '\r\n--' + boundary + '--\r\n';
                     var contentType = 'multipart/mixed; boundary=' + boundary;
 
-                    for (var i = 0, file; file = self.fileQueue()[i]; i++) {
-                        oj.Logger.info(file);
+                    for (var i = 0, fileItem; fileItem = self.fileQueue()[i]; i++) {
+                        //oj.Logger.info(file);
 
                         var content = header;
                         content += 'Content-Disposition: inline' + '\r\n';
                         content += 'Content-Type: application/json' + '\r\n\r\n';
 
                         var payload = {
-                            'attachmentName': file.name,
-                            'mimeType': file.type,
-                            'attachmentSize': file.byteSize,
-                            'attachmentScope': 'BPM'
+                            'attachmentName': fileItem.fileModel.name,
+                            'mimeType': fileItem.fileModel.type,
+                            'attachmentSize': fileItem.fileModel.byteSize,
+                            'attachmentScope': 'TASK'
                         };
 
                         content += JSON.stringify(payload) + '\r\n';
                         content += header;
                         content += 'Content-Transfer-Encoding: binary\r\n\r\n';
-                        content += file.content;
+                        content += fileItem.fileModel.content;
                         content += footer;
 
-                        taskQueryService.addAttachment(self.options.uploadUrl, content, contentType).done(function (data) {
+                        var uploadUrl = taskQueryService.taskAttachmentsURL(context.properties.number);
+
+                        taskQueryService.uploadAttachment(uploadUrl, i, content, contentType, progressCallback).done(function (data) {
                             oj.Logger.info("success");
-                        }).progress(function (evt) {
-                            oj.Logger.info("progress");
-                            if (evt.lengthComputable) {
-                                var percentComplete = Math.round((evt.loaded * 100) / evt.total);
-                                //Do something with upload progress
-                                console.log('Uploaded or Download percent', percentComplete);
-                            }
                         }).fail(function (jqXHR, textStatus, errorThrown) {
                             oj.Logger.error(jqXHR);
                             oj.Logger.error(textStatus);
@@ -225,7 +206,23 @@ define(['knockout', 'services/taskQueryService', 'ojs/ojfilepicker', 'ojs/ojbutt
                 self.fileQueue.removeAll();
             };
 
+            
+            
+            progressCallback = function(id, evt) {
+                if (evt.lengthComputable) {
 
+                    // listview에서 각 개별 observablearray의 item 값이 변경될 때 업데이트하는 방법???
+                    self.progressStatus(30);
+
+                    var percentComplete = Math.round((evt.loaded * 100) / evt.total);
+                    //Do something with upload progress
+                    //console.log(self.fileQueue());
+                    //console.log("ProgressCallback.id("+id+") : " +  percentComplete);
+                    //self.fileQueue()[id]["fileProgressStatus"] = 30;
+                    //console.log(self.fileQueue());
+                    //console.log("ProgressCallback.id("+id+") : " +  percentComplete);
+                }
+            };
             // File Icon을 SVG로 활용...
             // Progress 상태 뷰를 아래 소스 참고해서 변경.
             //             self.svgUrl = ko.observable("/js/libs/svg-icon/sprite/symbol/logos.svg");

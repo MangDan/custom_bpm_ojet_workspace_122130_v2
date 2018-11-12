@@ -44,7 +44,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', , 'ojs/ojbutton', 'ojs/ojcomposite',
       };
 
       self.taskActionListener = function(event) {
-        console.log("taskActionLister...");
         params.currentTaskModule("list");
       };
     }

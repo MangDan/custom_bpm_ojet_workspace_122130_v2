@@ -90,7 +90,7 @@ define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', '
             // Promise에 대해서 정리...
             var getTaskDetail = function () {
                 return new Promise(function (resolve, reject) {
-                    var taskModel = taskQueryService.taskModel(obpmConfig.serverurl + self.taskDetailQueryURL() + "?expanded=all");
+                    var taskModel = taskQueryService.taskModel(self.taskDetailQueryURL() + "?expanded=all");
 
                     taskModel.fetch({
                         success: function (model, task) {
@@ -120,7 +120,7 @@ define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', '
             var getTaskSummaryPayload = function () {
                 return new Promise(function (resolve, reject) {
                     if (obpmConfig.appTarget === "onpremise") {
-                        var taskSummaryPaylodModel = taskQueryService.taskSummaryPayloadModel(obpmConfig.serverurl + self.taskPayloadQueryURL());
+                        var taskSummaryPaylodModel = taskQueryService.taskSummaryPayloadModel(self.taskPayloadQueryURL());
 
                         taskSummaryPaylodModel.fetch({
                             success: function (model, payload) {
@@ -146,7 +146,7 @@ define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', '
             var getTaskComments = function () {
                 return new Promise(function (resolve, reject) {
                     if (obpmConfig.appTarget === "onpremise") {
-                        self.taskCommentCol(taskQueryService.taskCommentCol(obpmConfig.serverurl + self.taskCommentsURL()));
+                        self.taskCommentCol(taskQueryService.taskCommentCol(self.taskCommentsURL()));
 
                         self.taskCommentCol().fetch({
                             success: function (collection, comment) {
@@ -170,7 +170,7 @@ define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', '
             var getTaskAttachments = function () {
                 return new Promise(function (resolve, reject) {
                     if (obpmConfig.appTarget === "onpremise") {
-                        self.taskAttachmentCol(taskQueryService.taskAttachmentCol(obpmConfig.serverurl + self.taskAttachmentsURL(), 5));
+                        self.taskAttachmentCol(taskQueryService.taskAttachmentCol(self.taskAttachmentsURL(), 5));
 
                         self.taskAttachmentCol().fetch({
                             success: function (collection, attachment) {
@@ -255,11 +255,23 @@ define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', '
                     oj.Logger.log(response[0]);
                     oj.Logger.log(response[1]);
 
-                    // Task Action 완료후... detail.js의 taskAction Event 호출
-                    var element = context.element;
-                    element.dispatchEvent(new CustomEvent('taskAction'));
+                    document.querySelector("#taskProgressDialog").close();
+
+                    
                 });
 
+            };
+
+            // taskProgressDialog가 Close 완료 이벤트 발생 후 순차적으로 동작하도록 변경함.
+            taskProgressDialogCloseListener = function(event) {
+                var popup = document.querySelector('#taskDetailModalDialog');
+                if(popup.isOpen()) {
+                    popup.close();
+                }
+                
+                // Task Action 완료후... detail.js의 taskAction Event 호출
+                var element = context.element;
+                element.dispatchEvent(new CustomEvent('taskAction'));
             };
 
             updateTaskPayload = function () {
@@ -282,7 +294,7 @@ define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', '
 
                     $.ajax({
                         type: "POST",
-                        url: obpmConfig.serverurl + self.updateTaskPayloadURL(),
+                        url: self.updateTaskPayloadURL(),
                         contentType: "application/json",
                         headers: {
                             Authorization: "Basic " + sessionStorage.getItem("userToken")
@@ -304,7 +316,7 @@ define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', '
 
             updateTaskByAction = function (action) {
                 return new Promise(function (resolve, reject) {
-                    var taskModel = taskQueryService.taskModel(obpmConfig.serverurl + self.taskDetailQueryURL());
+                    var taskModel = taskQueryService.taskModel(self.taskDetailQueryURL());
 
                     // var updateTaskComment = {
                     //     "action": {
@@ -326,7 +338,7 @@ define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', '
 
                     $.ajax({
                         type: "PUT",
-                        url: obpmConfig.serverurl + self.taskDetailQueryURL(),
+                        url: self.taskDetailQueryURL(),
                         contentType: "application/json",
                         headers: {
                             Authorization: "Basic " + sessionStorage.getItem("userToken")
@@ -357,7 +369,7 @@ define(['knockout', 'services/taskQueryService', 'ckeditor5-classic/ckeditor', '
 
                 var comment = { commentStr: commentStr };
 
-                self.taskCommentCol(taskQueryService.taskCommentCol(obpmConfig.serverurl + self.taskCommentsURL()));
+                self.taskCommentCol(taskQueryService.taskCommentCol(self.taskCommentsURL()));
 
                 self.taskCommentCol().create(comment, {
                     // taskCommentCol에서 customURL을 통해 Authrization을 하도록 되어 있어서 Authrization 문제 없을것으로 판단되었으나, 오류가 발생. 아래와 같이 Headers 추가로 문제 픽스함. (best practice?)
